@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>sk.vezmito</groupId>
-	<artifactId>backend</artifactId>
+	<artifactId>api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>backend</name>
+	<name>api</name>
 	<description>Backend API services for VezmiTo app</description>
 	<properties>
 		<java.version>11</java.version>
