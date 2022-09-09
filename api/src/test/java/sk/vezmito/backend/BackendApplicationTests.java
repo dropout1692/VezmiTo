@@ -1,4 +1,4 @@
-package sk.vezmito.backend;
+package sk.vezmito.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
