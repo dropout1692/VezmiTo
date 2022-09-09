@@ -1,0 +1,2 @@
+# VezmiTo
+vezmito.sk
