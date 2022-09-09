@@ -1,0 +1,1 @@
+# VezmiTo.sk - DB
