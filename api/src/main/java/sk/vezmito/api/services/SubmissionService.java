@@ -43,7 +43,7 @@ public class SubmissionService {
         //todo: impl
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("message", String.format("Sumbission %s deleted.", id));
+        headers.add("message", String.format("Submission %s deleted.", id));
 
         return ResponseEntity
             .ok()
@@ -51,11 +51,11 @@ public class SubmissionService {
             .body(null);
     }
 
-    public ResponseEntity<Submission> createSubmission(CreateSubmissionDTO dto){
+    public ResponseEntity<Submission> createSubmission(CreateSubmissionDTO dto) {
 
         //todo: impl
 
-        Freebie tempSubmission = new Freebie();
+        Freebie tempSubmission = new Freebie(); //todo: remove
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", String.format("Submission %s created.",
@@ -68,19 +68,20 @@ public class SubmissionService {
             .body(tempSubmission);
     }
 
-    public ResponseEntity<Void> addPhotosToSubmission(String id, List<MultipartFile> files) {
+    public ResponseEntity<Submission> updateSubmission(String id, CreateSubmissionDTO dto) {
 
         //todo: impl
 
+        Freebie tempSubmission = new Freebie(); //todo: remove
+
         HttpHeaders headers = new HttpHeaders();
-        headers.add("message", String.format("%s photo(s) added to submission %s.",
-            files.size(),
-            id
+        headers.add("message", String.format("Submission %s updated.",
+            tempSubmission.getId()
         ));
 
         return ResponseEntity
             .ok()
             .headers(headers)
-            .body(null);
+            .body(tempSubmission);
     }
 }

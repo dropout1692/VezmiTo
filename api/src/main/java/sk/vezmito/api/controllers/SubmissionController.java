@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 import sk.vezmito.api.dto.CreateSubmissionDTO;
 import sk.vezmito.api.entities.submission.Submission;
 import sk.vezmito.api.services.SubmissionService;
@@ -51,11 +50,11 @@ public class SubmissionController {
         return service.createSubmission(dto);
     }
 
-    @PostMapping("/addPhotos/{id}")
-    public ResponseEntity<Void> addPhotos(
+    @PostMapping("/update/{id}")
+    public ResponseEntity<Submission> updateSubmission(
         @PathVariable String id,
-        @RequestBody List<MultipartFile> files
+        @RequestBody CreateSubmissionDTO dto
     ) {
-        return service.addPhotosToSubmission(id, files);
+        return service.updateSubmission(id, dto);
     }
 }
