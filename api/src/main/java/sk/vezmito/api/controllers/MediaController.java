@@ -3,6 +3,7 @@ package sk.vezmito.api.controllers;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +31,7 @@ public class MediaController {
         return service.addPhotosToSubmission(id, files);
     }
 
-    @PostMapping("/removePhotos/{id}")
+    @DeleteMapping("/removePhotos/{id}")
     public ResponseEntity<Void> removePhotos(
         @PathVariable String id,
         @RequestBody List<String> photoIDs
