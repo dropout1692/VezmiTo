@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import sk.vezmito.api.common.Album;
 import sk.vezmito.api.common.Author;
-import sk.vezmito.api.common.Comment;
 import sk.vezmito.api.common.Location;
 import sk.vezmito.api.common.Tag;
 import sk.vezmito.api.enums.SubmissionState;
@@ -15,8 +14,7 @@ import sk.vezmito.api.enums.SubmissionState;
 @Setter
 public class Submission {
 
-    private Long id;
-    private final String uuid;
+    private final String id;
 
     private Author author;
 
@@ -35,6 +33,7 @@ public class Submission {
 //    private List<Comment> comments;
 
     public Submission() {
-        this.uuid = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString();
+        this.submissionState = SubmissionState.CREATED;
     }
 }

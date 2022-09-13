@@ -1,5 +1,6 @@
 package sk.vezmito.api.common;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,8 @@ import lombok.Setter;
 @Setter
 public class Author {
 
+    private String id;
     private String phone;
     private String email;
-    private String deviceID;
+    private List<String> deviceID;
 }
