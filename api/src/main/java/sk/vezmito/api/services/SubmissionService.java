@@ -4,9 +4,7 @@ import java.util.List;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import sk.vezmito.api.dto.CreateSubmissionDTO;
-import sk.vezmito.api.entities.submission.Freebie;
 import sk.vezmito.api.entities.submission.Submission;
 
 @Service
@@ -55,7 +53,7 @@ public class SubmissionService {
 
         //todo: impl
 
-        Freebie tempSubmission = new Freebie(); //todo: remove
+        Submission tempSubmission = new Submission(); //todo: remove
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", String.format("Submission %s created.",
@@ -72,7 +70,7 @@ public class SubmissionService {
 
         //todo: impl
 
-        Freebie tempSubmission = new Freebie(); //todo: remove
+        Submission tempSubmission = new Submission(); //todo: remove
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", String.format("Submission %s updated.",

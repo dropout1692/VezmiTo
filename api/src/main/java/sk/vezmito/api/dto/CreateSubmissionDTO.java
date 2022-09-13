@@ -1,10 +1,11 @@
 package sk.vezmito.api.dto;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import sk.vezmito.api.common.Author;
-import sk.vezmito.api.enums.SubmissionType;
+import sk.vezmito.api.common.Tag;
 
 @Getter
 @Setter
@@ -12,7 +13,7 @@ import sk.vezmito.api.enums.SubmissionType;
 public class CreateSubmissionDTO {
 
     private Author author;
-    private SubmissionType submissionType;
+    private List<Tag> category;
 
     private String name;
     private String gpsX;
