@@ -1,4 +1,4 @@
-package sk.vezmito.api.common;
+package sk.vezmito.api.entities;
 
 import java.util.List;
 import lombok.Getter;

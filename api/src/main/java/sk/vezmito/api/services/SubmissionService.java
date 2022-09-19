@@ -5,7 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import sk.vezmito.api.dto.CreateSubmissionDTO;
-import sk.vezmito.api.entities.submission.Submission;
+import sk.vezmito.api.entities.Submission;
 
 @Service
 public class SubmissionService {

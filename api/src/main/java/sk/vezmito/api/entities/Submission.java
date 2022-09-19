@@ -1,11 +1,9 @@
-package sk.vezmito.api.entities.submission;
+package sk.vezmito.api.entities;
 
 import java.util.List;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-import sk.vezmito.api.common.Album;
-import sk.vezmito.api.common.Author;
 import sk.vezmito.api.common.Location;
 import sk.vezmito.api.common.Tag;
 import sk.vezmito.api.enums.SubmissionState;
