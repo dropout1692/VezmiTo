@@ -1,4 +1,4 @@
-package sk.vezmito.api.entities;
+package sk.vezmito.api.model;
 
 public class Comment {
 

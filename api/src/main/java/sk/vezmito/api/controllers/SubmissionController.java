@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sk.vezmito.api.dto.CreateSubmissionDTO;
-import sk.vezmito.api.entities.Submission;
+import sk.vezmito.api.dto.UpdateSubmissionDTO;
+import sk.vezmito.api.model.Submission;
 import sk.vezmito.api.services.SubmissionService;
 
 @RestController
@@ -54,7 +55,7 @@ public class SubmissionController {
     @PostMapping("/update/{id}")
     public ResponseEntity<Submission> updateSubmission(
         @PathVariable String id,
-        @RequestBody CreateSubmissionDTO dto
+        @RequestBody UpdateSubmissionDTO dto
     ) {
         return service.updateSubmission(id, dto);
     }

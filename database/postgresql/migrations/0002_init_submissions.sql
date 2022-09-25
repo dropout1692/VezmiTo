@@ -4,12 +4,13 @@ CREATE TABLE IF NOT EXISTS submissions
     author       varchar not null,
     title        varchar,
     state        varchar,
+    type         varchar,
     geo_location varchar,
     description  varchar,
-    tags         text[],
+    tags         varchar,
+    flags        varchar,
     pin          varchar not null,
-    created_at   bigint,
-    updated_at   bigint,
-    delete_at    bigint,
+    created_at   varchar,
+    updated_at   varchar,
     album        varchar
 );

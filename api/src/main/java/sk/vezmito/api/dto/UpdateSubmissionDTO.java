@@ -10,9 +10,8 @@ import sk.vezmito.api.enums.SubmissionType;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CreateSubmissionDTO {
+public class UpdateSubmissionDTO {
 
-    private AuthorRequestDTO author;
     private String title;
     private SubmissionType submissionType;
     private List<Tag> tags;

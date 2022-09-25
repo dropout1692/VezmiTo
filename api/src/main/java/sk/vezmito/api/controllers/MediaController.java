@@ -19,7 +19,7 @@ public class MediaController {
     private final MediaService service;
 
     @Autowired
-    public MediaController(MediaService service){
+    public MediaController(MediaService service) {
         this.service = service;
     }
 
