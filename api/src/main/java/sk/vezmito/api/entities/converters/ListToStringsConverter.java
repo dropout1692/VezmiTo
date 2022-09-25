@@ -8,11 +8,11 @@ public class ListToStringsConverter implements AttributeConverter<List<String>, 
 
     @Override
     public String convertToDatabaseColumn(List<String> tList) {
-        return String.join(";", tList);
+        return String.join(";;;", tList);
     }
 
     @Override
     public List<String> convertToEntityAttribute(String s) {
-        return Arrays.asList(s.split(""));
+        return Arrays.asList(s.split(";;;"));
     }
 }
