@@ -15,10 +15,10 @@ public class LocationConverter implements AttributeConverter<Location, String> {
 
     @Override
     public Location convertToEntityAttribute(String s) {
-        Location location = new Location();
         String[] splitted = s.split(";");
-        location.setLatitude(Double.parseDouble(splitted[0]));
-        location.setLongitude(Double.parseDouble(splitted[1]));
-        return location;
+        return new Location(
+            splitted[0],
+            splitted[1]
+        );
     }
 }

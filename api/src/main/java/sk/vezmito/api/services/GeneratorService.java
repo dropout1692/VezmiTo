@@ -117,8 +117,8 @@ public class GeneratorService {
         String deviceID = UUID.randomUUID().toString();
 
         AuthorEntity author = new AuthorEntity();
-        author.getDeviceID().add(deviceID);
-        author.getEmail().add(email);
+        author.setDeviceID(deviceID);
+        author.setEmail(email);
 
         authorDAO.save(author);
 

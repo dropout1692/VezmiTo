@@ -1,9 +1,12 @@
 package sk.vezmito.api.services;
 
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sk.vezmito.api.dto.AuthorRequestDTO;
 import sk.vezmito.api.entities.AuthorEntity;
+import sk.vezmito.api.model.Author;
 import sk.vezmito.api.persistence.AuthorDAO;
 
 @Service
@@ -14,63 +17,55 @@ public class AuthorService {
 
     public AuthorEntity createAuthorEntity(AuthorRequestDTO dto) {
 
-        AuthorEntity authorEntity = findExistingAuthor(dto);
+        //todo: improve when sober
+        List<AuthorEntity> allAuthors = authorDAO.findAll();
+        Optional<AuthorEntity> oldAuthor = findExistingAuthor(dto, allAuthors);
 
-        if (authorEntity != null) {
-            return authorEntity;
+        if (oldAuthor.isPresent()) {
+
+            AuthorEntity author = oldAuthor.get();
+
+            if (dto.getPhone() != null) {
+                author.setPhone(dto.getPhone());
+            }
+
+            if (dto.getEmail() != null) {
+                author.setEmail(dto.getEmail());
+            }
+
+            if (dto.getDeviceID() != null) {
+                author.setDeviceID(dto.getDeviceID());
+            }
+
+            authorDAO.save(author);
+            return author;
+
         } else {
-            //todo: actually create a new author
-            return null;
+
+            AuthorEntity author = new AuthorEntity();
+
+            author.setDeviceID(dto.getDeviceID());
+            author.setEmail(dto.getEmail());
+            author.setPhone(dto.getPhone());
+
+            authorDAO.save(author);
+            return author;
         }
     }
 
-    //todo: getAuthor phone/email/devId ?
-    //todo: deleteAuthor ?
-
-    private AuthorEntity findExistingAuthor(AuthorRequestDTO author) {
-
-        if (author.getEmail() != null) {
-            AuthorEntity foundAuthor = authorDAO.findByEmail(author.getEmail());
-            if (foundAuthor != null) {
-                return mergeAuthors(author, foundAuthor);
-            }
-        }
-
-        if (author.getPhone() != null) {
-            AuthorEntity foundAuthor = authorDAO.findByPhone(author.getPhone());
-            if (foundAuthor != null) {
-                return mergeAuthors(author, foundAuthor);
-            }
-        }
-
-        if (author.getDeviceID() != null) {
-            AuthorEntity foundAuthor = authorDAO.findByDeviceID(author.getDeviceID());
-            if (foundAuthor != null) {
-                return mergeAuthors(author, foundAuthor);
-            }
-        }
-
-        return null;
+    private Optional<AuthorEntity> findExistingAuthor(
+        AuthorRequestDTO dto,
+        List<AuthorEntity> authors
+    ) {
+        return authors.stream()
+            .filter(a -> {
+                boolean phoneMatch = a.getPhone().equals(dto.getPhone());
+                boolean emailMatch = a.getEmail().equals(dto.getEmail());
+                boolean deviceIDMatch = a.getDeviceID().equals(dto.getDeviceID());
+                return phoneMatch || emailMatch || deviceIDMatch;
+            })
+            .findFirst();
     }
 
-    private AuthorEntity mergeAuthors(AuthorRequestDTO author, AuthorEntity foundAuthor) {
-
-        String phone = author.getPhone();
-        String email = author.getEmail();
-        String deviceID = author.getDeviceID();
-
-        if (phone != null && !foundAuthor.getPhone().contains(phone)) {
-            foundAuthor.getPhone().add(phone);
-        }
-
-        if (email != null && !foundAuthor.getEmail().contains(email)) {
-            foundAuthor.getEmail().add(email);
-        }
-
-        if (deviceID != null && !foundAuthor.getDeviceID().contains(deviceID)) {
-            foundAuthor.getDeviceID().add(deviceID);
-        }
-
-        return authorDAO.save(foundAuthor);
-    }
+    //todo: handle author merging
 }

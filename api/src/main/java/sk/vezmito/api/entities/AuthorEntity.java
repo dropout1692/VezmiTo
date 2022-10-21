@@ -25,13 +25,10 @@ public class AuthorEntity {
     @GeneratedValue
     private String id;
 
-    @Convert(converter = ListToStringsConverter.class)
-    private List<String> phone;
+    private String phone;
 
-    @Convert(converter = ListToStringsConverter.class)
-    private List<String> email;
+    private String email;
 
-    @Convert(converter = ListToStringsConverter.class)
     @Column(name = "device_id")
-    private List<String> deviceID;
+    private String deviceID;
 }
