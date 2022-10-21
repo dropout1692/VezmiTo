@@ -40,8 +40,6 @@ public class Submission {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
 
-    private Album photos;
-
     public Submission() {
         this.id = UUID.randomUUID().toString();
         this.submissionState = SubmissionState.CREATED;
@@ -60,8 +58,7 @@ public class Submission {
             entity.getFlags(),
             entity.getPin(),
             entity.getCreatedAt(),
-            entity.getUpdatedAt(),
-            new Album(entity.getAlbum())
+            entity.getUpdatedAt()
         );
     }
 }

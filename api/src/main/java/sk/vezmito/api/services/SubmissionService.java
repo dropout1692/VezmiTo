@@ -87,9 +87,12 @@ public class SubmissionService {
         AuthorRequestDTO authorDTO = dto.getAuthor();
         AuthorEntity author = authorService.createAuthorEntity(authorDTO);
 
+        LocalDateTime now = LocalDateTime.now();
+
         SubmissionEntity submissionEntity = new SubmissionEntity();
         submissionEntity.setAuthor(author);
-        submissionEntity.setCreatedAt(LocalDateTime.now());
+        submissionEntity.setCreatedAt(now);
+        submissionEntity.setUpdatedAt(now);
         submissionEntity.setDescription(dto.getDescription());
         submissionEntity.setLocation(new Location(dto.getGpsLatitude(), dto.getGpsLongitude()));
         submissionEntity.setPin(PinUtil.randomPin());

@@ -80,10 +80,12 @@ public class GeneratorService {
 
         SubmissionEntity entity = new SubmissionEntity();
         String id = UUID.randomUUID().toString();
+        LocalDateTime now = LocalDateTime.now();
 
         entity.setId(id);
         entity.setAuthor(getRandomAuthor());
-        entity.setCreatedAt(LocalDateTime.now());
+        entity.setCreatedAt(now);
+        entity.setUpdatedAt(now);
         entity.setDescription(GEN_DESCRIPTION);
         entity.setLocation(getRandomLocation());
         entity.setPin(PinUtil.randomPin());
