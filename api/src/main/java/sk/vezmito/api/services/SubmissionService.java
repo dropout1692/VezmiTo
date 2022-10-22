@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +29,14 @@ public class SubmissionService {
     @Autowired
     private SubmissionDAO submissionDAO;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     public ResponseEntity<List<Submission>> getAllSubmissions() {
 
         List<SubmissionEntity> foundSubmissions = submissionDAO.findAll();
         List<Submission> submissions = foundSubmissions.stream()
-            .map(Submission::new)
+            .map(f -> modelMapper.map(f, Submission.class))
             .collect(Collectors.toList());
 
         HttpHeaders headers = new HttpHeaders();
@@ -55,7 +59,7 @@ public class SubmissionService {
             return ResponseEntity
                 .ok()
                 .headers(headers)
-                .body(new Submission(foundSubmission.get()));
+                .body(modelMapper.map(foundSubmission.get(), Submission.class));
 
         } else {
 
@@ -89,7 +93,7 @@ public class SubmissionService {
 
         LocalDateTime now = LocalDateTime.now();
 
-        SubmissionEntity submissionEntity = new SubmissionEntity();
+        SubmissionEntity submissionEntity = modelMapper.map(dto, SubmissionEntity.class);
         submissionEntity.setAuthor(author);
         submissionEntity.setCreatedAt(now);
         submissionEntity.setUpdatedAt(now);
@@ -98,11 +102,9 @@ public class SubmissionService {
         submissionEntity.setPin(PinUtil.randomPin());
         submissionEntity.setSubmissionState(SubmissionState.CREATED);
         submissionEntity.setSubmissionType(dto.getSubmissionType());
-        submissionEntity.setTags(dto.getTags());
-        submissionEntity.setTitle(dto.getTitle());
 
         SubmissionEntity createdEntity = submissionDAO.save(submissionEntity);
-        Submission submission = new Submission(createdEntity);
+        Submission submission = modelMapper.map(createdEntity, Submission.class);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", String.format("Submission %s created.",
@@ -125,14 +127,10 @@ public class SubmissionService {
             SubmissionEntity submissionEntity = foundEntity.get();
 
             submissionEntity.setUpdatedAt(LocalDateTime.now());
-            submissionEntity.setDescription(dto.getDescription());
             submissionEntity.setLocation(new Location(dto.getGpsLatitude(), dto.getGpsLongitude()));
             submissionEntity.setSubmissionState(SubmissionState.CREATED);
-            submissionEntity.setSubmissionType(dto.getSubmissionType());
-            submissionEntity.setTags(dto.getTags());
-            submissionEntity.setTitle(dto.getTitle());
 
-            Submission submission = new Submission(submissionEntity);
+            Submission submission = modelMapper.map(submissionEntity, Submission.class);
 
             headers.add("message", String.format("Submission %s updated.",
                 submission.getId()

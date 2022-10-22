@@ -44,21 +44,4 @@ public class Submission {
         this.id = UUID.randomUUID().toString();
         this.submissionState = SubmissionState.CREATED;
     }
-
-    public Submission(SubmissionEntity entity) {
-        new Submission(
-            entity.getId(),
-            new Author(entity.getAuthor()),
-            entity.getTitle(),
-            entity.getSubmissionState(),
-            entity.getLocation(),
-            entity.getDescription(),
-            entity.getSubmissionType(),
-            entity.getTags(),
-            entity.getFlags(),
-            entity.getPin(),
-            entity.getCreatedAt(),
-            entity.getUpdatedAt()
-        );
-    }
 }
