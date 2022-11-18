@@ -106,16 +106,18 @@ public class GeneratorService {
     //todo: move random generators to respective classes? Location.random()
     public Location getRandomLocation() {
 
+//        48.1486° N, 17.1077° E - Bratislava
+
         Random random = new Random(System.currentTimeMillis());
-        double minLat = -90.0d;
-        double maxLat = 90.0d;
-        double minLon = -180.0d;
-        double maxLon = 180.0d;
+        double bratislavaLat = 48.1486d;
+        double bratislavaLon = 17.1077d;
+        double deviationLat = bratislavaLat * (2d * random.nextDouble()) + bratislavaLat/2;
+        double deviationLon = bratislavaLon * (1.7d * random.nextDouble()) + bratislavaLon/2;
 
-        double randomLat = minLat + (maxLat + minLat) * random.nextDouble();
-        double randomLon = minLon + (maxLon + minLon) * random.nextDouble();
-
-        return new Location(String.valueOf(randomLat), String.valueOf(randomLon));
+        return new Location(
+            String.valueOf(deviationLat),
+            String.valueOf(deviationLon)
+        );
     }
 
     public Tag getGeneratedTag() {

@@ -22,7 +22,7 @@ public class GeneratorController {
         service.wipeDatabase();
     }
 
-    @DeleteMapping("/deleteAll")
+    @DeleteMapping("/deleteGenerated")
     public void removeGenerated() {
         service.deleteAllGeneratedData();
     }
