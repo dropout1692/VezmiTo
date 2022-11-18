@@ -1,6 +1,7 @@
 package sk.vezmito.api.services;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -33,18 +34,18 @@ public class GeneratorService {
     @Autowired
     AuthorDAO authorDAO;
 
-    public void wipeDatabase(){
+    public void wipeDatabase() {
         submissionDAO.deleteAll();
         authorDAO.deleteAll();
     }
 
-    public void deleteAllGeneratedData(){
+    public void deleteAllGeneratedData() {
 
         List<SubmissionEntity> submissions = submissionDAO.findAll();
         submissions.stream()
             .filter(s -> {
-                for(Tag tag : s.getTags()){
-                    if(tag.getName().equals(GEN_TAG)){
+                for (Tag tag : s.getTags()) {
+                    if (tag.getName().equals(GEN_TAG)) {
                         return true;
                     }
                 }
@@ -58,25 +59,30 @@ public class GeneratorService {
             .forEach(a -> authorDAO.delete(a));
     }
 
-    public void generateSubmissions(int count, SubmissionType type){
+    public List<String> generateSubmissions(int count, SubmissionType type) {
 
         SubmissionEntity submissionEntity;
         SubmissionType actualType;
-        for(int i=0; i<count; i++){
-            if(type == null){
+        List<String> idList = new ArrayList<>();
+
+        for (int i = 0; i < count; i++) {
+            if (type == null) {
                 List<SubmissionType> types = Arrays.asList(SubmissionType.values());
                 Random random = new Random(System.currentTimeMillis());
                 actualType = types.get(random.nextInt(types.size()));
-            }else{
+            } else {
                 actualType = type;
             }
 
             submissionEntity = generateSubmission(actualType);
             submissionDAO.save(submissionEntity);
+            idList.add(submissionEntity.getId());
         }
+
+        return idList;
     }
 
-    private SubmissionEntity generateSubmission(SubmissionType type){
+    private SubmissionEntity generateSubmission(SubmissionType type) {
 
         SubmissionEntity entity = new SubmissionEntity();
         String id = UUID.randomUUID().toString();
@@ -98,7 +104,7 @@ public class GeneratorService {
     }
 
     //todo: move random generators to respective classes? Location.random()
-    private Location getRandomLocation(){
+    public Location getRandomLocation() {
 
         Random random = new Random(System.currentTimeMillis());
         double minLat = -90.0d;
@@ -112,7 +118,18 @@ public class GeneratorService {
         return new Location(String.valueOf(randomLat), String.valueOf(randomLon));
     }
 
-    private AuthorEntity getRandomAuthor(){
+    public Tag getGeneratedTag() {
+
+        Tag tag = new Tag();
+        tag.setId(UUID.randomUUID().toString());
+        tag.setHexColor(GEN_HEX);
+        tag.setName(GEN_TAG);
+        tag.setPermanent(true);
+
+        return tag;
+    }
+
+    private AuthorEntity getRandomAuthor() {
 
         Random random = new Random(System.currentTimeMillis());
         String email = String.format(GEN_EMAIL, random.nextInt(99999));
@@ -125,16 +142,5 @@ public class GeneratorService {
         authorDAO.save(author);
 
         return author;
-    }
-
-    private Tag getGeneratedTag(){
-
-        Tag tag = new Tag();
-        tag.setId(UUID.randomUUID().toString());
-        tag.setHexColor(GEN_HEX);
-        tag.setName(GEN_TAG);
-        tag.setPermanent(true);
-
-        return tag;
     }
 }
