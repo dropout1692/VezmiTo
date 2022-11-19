@@ -4,3 +4,5 @@ out/
 web/dist/
 web/node_modules/
 web/.parcel-cache/
+
+.DS_Store
