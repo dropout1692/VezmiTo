@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import sk.vezmito.api.common.Location;
 import sk.vezmito.api.dto.AuthorRequestDTO;
 import sk.vezmito.api.dto.CreateSubmissionDTO;
+import sk.vezmito.api.dto.LiteSubmission;
 import sk.vezmito.api.dto.UpdateSubmissionDTO;
 import sk.vezmito.api.entities.AuthorEntity;
 import sk.vezmito.api.entities.SubmissionEntity;
@@ -70,6 +71,22 @@ public class SubmissionService {
                 .headers(headers)
                 .build();
         }
+    }
+
+    public ResponseEntity<List<LiteSubmission>> getAllLocations(){
+
+        List<SubmissionEntity> foundSubmissions = submissionDAO.findAll();
+        List<LiteSubmission> submissions = foundSubmissions.stream()
+            .map(f -> modelMapper.map(f, LiteSubmission.class))
+            .collect(Collectors.toList());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("message", "Returning all pin locations.");
+
+        return ResponseEntity
+            .ok()
+            .headers(headers)
+            .body(submissions);
     }
 
     public ResponseEntity<Void> deleteSubmission(String id) {

@@ -4,6 +4,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import sk.vezmito.api.persistence.SubmissionDAO;
 import sk.vezmito.api.services.SubmissionService;
 
 @SpringBootTest
+@Disabled
 public class SubmissionTests {
 
     @Autowired

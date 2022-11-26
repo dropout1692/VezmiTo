@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sk.vezmito.api.dto.CreateSubmissionDTO;
+import sk.vezmito.api.dto.LiteSubmission;
 import sk.vezmito.api.dto.UpdateSubmissionDTO;
 import sk.vezmito.api.model.Submission;
 import sk.vezmito.api.services.SubmissionService;
@@ -36,6 +37,11 @@ public class SubmissionController {
         @PathVariable String id
     ) {
         return service.getSubmission(id);
+    }
+
+    @GetMapping("/get/locations")
+    public ResponseEntity<List<LiteSubmission>> getAllLocations() {
+        return service.getAllLocations();
     }
 
     @DeleteMapping("/delete/{id}")
