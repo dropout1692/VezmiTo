@@ -1,1 +1,0 @@
-# VezmiTo.sk - Mobile
