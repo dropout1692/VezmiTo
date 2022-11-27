@@ -4,23 +4,28 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-} from "@ionic/react";
-import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
-import "./Tab1.css";
-import "leaflet.markercluster";
-import MarkerClusterGroup from "@changey/react-leaflet-markercluster";
+} from '@ionic/react'
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
+import './Tab1.css'
+import 'leaflet.markercluster'
+import MarkerClusterGroup from '@changey/react-leaflet-markercluster'
+import { useGetSubmissions } from '../hooks/submissions/useGetSubmissions'
+import React from 'react'
+import { OverlaySpinner } from '../components/Spinner/OverlaySpinner'
 
 const ComponentResize = () => {
-  const map = useMap();
+  const map = useMap()
 
   setTimeout(() => {
-    map.invalidateSize();
-  }, 0);
+    map.invalidateSize()
+  }, 0)
 
-  return null;
-};
+  return null
+}
 
 const Tab1: React.FC = () => {
+  const { data, silentLoading } = useGetSubmissions()
+
   return (
     <IonPage>
       <IonHeader>
@@ -34,6 +39,7 @@ const Tab1: React.FC = () => {
             <IonTitle size="large">Tab 1</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <OverlaySpinner show={silentLoading} />
         <MapContainer
           className="markercluster-map"
           center={[51.0, 19.0]}
@@ -45,15 +51,23 @@ const Tab1: React.FC = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
-          <MarkerClusterGroup>
-            <Marker position={[49.8397, 24.0297]} />
-            <Marker position={[52.2297, 21.0122]} />
-            <Marker position={[51.5074, -0.0901]} />
-          </MarkerClusterGroup>
+          {data && (
+            <MarkerClusterGroup>
+              {data.map((submission: any) => {
+                const { id, location } = submission
+                return (
+                  <Marker
+                    key={id}
+                    position={[location?.longitude, location?.latitude]}
+                  />
+                )
+              })}
+            </MarkerClusterGroup>
+          )}
         </MapContainer>
       </IonContent>
     </IonPage>
-  );
-};
+  )
+}
 
-export default Tab1;
+export default Tab1
