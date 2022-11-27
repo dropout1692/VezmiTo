@@ -1,8 +1,16 @@
 .idea/
 out/
 
-web/dist/
-web/node_modules/
-web/.parcel-cache/
+# APP
+app/dist/
+app/node_modules/
+app/.pnp
+app/.pnp.js
+
+# testing
+app/coverage
+
+# production
+app/build
 
 .DS_Store
