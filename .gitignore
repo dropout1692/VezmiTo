@@ -1,6 +1,7 @@
 .idea/
 out/
 
+<<<<<<< HEAD
 # APP
 app/dist/
 app/node_modules/
@@ -12,5 +13,9 @@ app/coverage
 
 # production
 app/build
+=======
+app/dist/
+app/node_modules/
+>>>>>>> 80097f956a3710f8cd3c94ce405bf311940de7d5
 
 .DS_Store
