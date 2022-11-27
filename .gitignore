@@ -1,8 +1,7 @@
 .idea/
 out/
 
-web/dist/
-web/node_modules/
-web/.parcel-cache/
+app/dist/
+app/node_modules/
 
 .DS_Store
