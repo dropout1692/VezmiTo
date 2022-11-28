@@ -1,30 +1,30 @@
-import axiosInstance from "./axiosInstance";
-import { dispatchType } from "../store/storeInstance";
-import { UI } from "../store/redux/constants";
+import axiosInstance from './axiosInstance'
+import { dispatchType } from '../store/storeInstance'
+import { UI } from '../store/redux/constants'
 
-export type RequestMethodType = "get" | "post";
+export type RequestMethodType = 'get' | 'post'
 
-let requestCounter = 0;
+let requestCounter = 0
 
 export function apiClient({ customConfig = {} } = {}) {
   return {
     request({
       url,
-      method = "get",
+      method = 'get',
       data,
     }: {
-      url: string;
-      method?: RequestMethodType;
-      data?: Record<string, any>;
+      url: string
+      method?: RequestMethodType
+      data?: Record<string, any>
     }) {
       if (requestCounter === 0) {
-        dispatchType(UI.SET_LOADING_START);
+        dispatchType(UI.SET_LOADING_START)
       }
       return axiosInstance({
         url,
         method,
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          'Content-Type': 'application/json',
         },
         ...(data && { data }),
         ...customConfig,
@@ -32,13 +32,13 @@ export function apiClient({ customConfig = {} } = {}) {
         .then((res) => res.data)
         .finally(() => {
           if (requestCounter >= 1) {
-            requestCounter -= 1;
+            requestCounter -= 1
           }
 
           if (requestCounter === 0) {
-            dispatchType(UI.SET_LOADING_STOP);
+            dispatchType(UI.SET_LOADING_STOP)
           }
-        });
+        })
     },
-  };
+  }
 }
