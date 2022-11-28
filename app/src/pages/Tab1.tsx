@@ -58,7 +58,10 @@ const Tab1: React.FC = () => {
                 return (
                   <Marker
                     key={id}
-                    position={[location?.longitude, location?.latitude]}
+                    position={{
+                      lat: location?.latitude,
+                      lng: location?.longitude,
+                    }}
                   />
                 )
               })}
