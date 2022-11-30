@@ -1,84 +1,84 @@
-,id,start,end
-0,Alchemilka žltozelená,5,9
-1,Archangelika lekárska,5,10
-2,Baza čierna,4,10
-3,Bazalka pravá,6,9
-4,Benedikt lekársky,5,10
-5,Betonika lekárska,6,8
-6,Borák lekársky,5,9
-7,Borievka obyčajná,9,10
-8,Breza previsnutá,3,6
-9,Čakanka obyčajná,7,10
-10,Čučoriedka obyčajná,7,9
-11,Chmeľ obyčajný,8,9
-12,Divozel veľkokvetý,7,8
-13,Dúška tymiánová - tymián,5,8
-14,Fenikel obyčajný,9,10
-15,Hloh obyčajný,5,10
-16,Horčiak pieprový,6,9
-17,Horec žltý,10,11
-18,Hrdobarka obyčajná,7,8
-19,Ibiš lekársky,6,10
-20,Ihlica roľná,3,10
-21,Imelo biele,1,12
-22,Jahoda obyčajná,5,7
-23,Jastrabina lekárska,7,8
-24,Kapsička pastierska,4,9
-25,Kapucínka,5,10
-26,Komonica lekárska,7,8
-27,Kôpor voňavý,8,9
-28,Koriander siaty,7,8
-29,Kosatec nemecký,3,10
-30,Kostihoj lekársky,5,10
-31,Krušina jelšová,3,4
-32,Ľan siaty,8,9
-33,Ľubovník bodkovaný,6,8
-34,Levanduľa,6,8
-35,"Lipa veľkolistá, lipa malolistá",6,7
-36,Lopúch väčší,3,11
-37,Marena farbiarska,9,10
-38,Mäta pieporná,6,9
-39,Materina dúška,5,8
-40,Medovka lekárska,6,9
-41,Medvedí cesnak,3,4
-42,Nátržník vzpriamený,3,10
-43,Nechtík lekársky,6,10
-44,Nevädza poľná,6,7
-45,Očianka Rostkovova,7,9
-46,Oman pravý,5,8
-47,Orech kráľovský,5,6
-48,Oregano - pamajorán obyčajný,5,8
-49,Ostružina malinová,6,8
-50,Pagaštan konský,3,9
-51,Palina pravá,5,9
-52,Pivonka obyčajná,3,6
-53,Plektrant - nádchovník,1,12
-54,Pľúcnik lekársky,3,5
-55,Podbeľ liečivý,4,8
-56,Praslička roľná,5,8
-57,Prietržník holý,6,8
-58,Prvosienka jarná,2,5
-59,Púpava lekárska,3,10
-60,Pýr plazivý,4,9
-61,Rebríček obyčajný (myší chvost),5,9
-62,Repík lekársky,5,9
-63,Ríbezľa čierna,6,8
-64,Rozchodník prudký,7,7
-65,Rozmarín lekársky,6,8
-66,Rumanček kamilkový (kamilka),5,9
-67,Ruža šípová,9,10
-68,Šalvia lekárska,5,10
-69,Saturejka horská,5,9
-70,Skorocel kopijovitý,5,9
-71,Slez Maurský,6,8
-72,Srdcovník obyčajný,6,7
-73,Stavikrv vtáčí,7,10
-74,Valeriána lekárska,8,10
-75,Veronika lekárska,3,8
-76,Vlkovec obyčajný,5,9
-77,Vratič obyčajný (králik),8,9
-78,Yzop lekársky,7,9
-79,Železník lekársky,7,9
-80,Žihľava dvojdomá,3,11
-81,Zemežlč menšia,6,8
-82,Zlatobyľ obyčajná,6,10
+,id,start,end,edible,type
+0,Alchemilka žltozelená,5,9,1,2
+1,Archangelika lekárska,5,10,1,2
+2,Baza čierna,4,10,1,2
+3,Bazalka pravá,6,9,1,2
+4,Benedikt lekársky,5,10,1,2
+5,Betonika lekárska,6,8,1,2
+6,Borák lekársky,5,9,1,2
+7,Borievka obyčajná,9,10,1,2
+8,Breza previsnutá,3,6,1,2
+9,Čakanka obyčajná,7,10,1,2
+10,Čučoriedka obyčajná,7,9,1,2
+11,Chmeľ obyčajný,8,9,1,2
+12,Divozel veľkokvetý,7,8,1,2
+13,Dúška tymiánová - tymián,5,8,1,2
+14,Fenikel obyčajný,9,10,1,2
+15,Hloh obyčajný,5,10,1,2
+16,Horčiak pieprový,6,9,1,2
+17,Horec žltý,10,11,1,2
+18,Hrdobarka obyčajná,7,8,1,2
+19,Ibiš lekársky,6,10,1,2
+20,Ihlica roľná,3,10,1,2
+21,Imelo biele,1,12,1,2
+22,Jahoda obyčajná,5,7,1,2
+23,Jastrabina lekárska,7,8,1,2
+24,Kapsička pastierska,4,9,1,2
+25,Kapucínka,5,10,1,2
+26,Komonica lekárska,7,8,1,2
+27,Kôpor voňavý,8,9,1,2
+28,Koriander siaty,7,8,1,2
+29,Kosatec nemecký,3,10,1,2
+30,Kostihoj lekársky,5,10,1,2
+31,Krušina jelšová,3,4,1,2
+32,Ľan siaty,8,9,1,2
+33,Ľubovník bodkovaný,6,8,1,2
+34,Levanduľa,6,8,1,2
+35,"Lipa veľkolistá, lipa malolistá",6,7,1,2
+36,Lopúch väčší,3,11,1,2
+37,Marena farbiarska,9,10,1,2
+38,Mäta pieporná,6,9,1,2
+39,Materina dúška,5,8,1,2
+40,Medovka lekárska,6,9,1,2
+41,Medvedí cesnak,3,4,1,2
+42,Nátržník vzpriamený,3,10,1,2
+43,Nechtík lekársky,6,10,1,2
+44,Nevädza poľná,6,7,1,2
+45,Očianka rostkovova,7,9,1,2
+46,Oman pravý,5,8,1,2
+47,Orech kráľovský,5,6,1,2
+48,Oregano - pamajorán obyčajný,5,8,1,2
+49,Ostružina malinová,6,8,1,2
+50,Pagaštan konský,3,9,1,2
+51,Palina pravá,5,9,1,2
+52,Pivonka obyčajná,3,6,1,2
+53,Plektrant - nádchovník,1,12,1,2
+54,Pľúcnik lekársky,3,5,1,2
+55,Podbeľ liečivý,4,8,1,2
+56,Praslička roľná,5,8,1,2
+57,Prietržník holý,6,8,1,2
+58,Prvosienka jarná,2,5,1,2
+59,Púpava lekárska,3,10,1,2
+60,Pýr plazivý,4,9,1,2
+61,Rebríček obyčajný (myší chvost),5,9,1,2
+62,Repík lekársky,5,9,1,2
+63,Ríbezľa čierna,6,8,1,2
+64,Rozchodník prudký,7,7,1,2
+65,Rozmarín lekársky,6,8,1,2
+66,Rumanček kamilkový (kamilka),5,9,1,2
+67,Ruža šípová,9,10,1,2
+68,Šalvia lekárska,5,10,1,2
+69,Saturejka horská,5,9,1,2
+70,Skorocel kopijovitý,5,9,1,2
+71,Slez maurský,6,8,1,2
+72,Srdcovník obyčajný,6,7,1,2
+73,Stavikrv vtáčí,7,10,1,2
+74,Valeriána lekárska,8,10,1,2
+75,Veronika lekárska,3,8,1,2
+76,Vlkovec obyčajný,5,9,1,2
+77,Vratič obyčajný (králik),8,9,1,2
+78,Yzop lekársky,7,9,1,2
+79,Železník lekársky,7,9,1,2
+80,Žihľava dvojdomá,3,11,1,2
+81,Zemežlč menšia,6,8,1,2
+82,Zlatobyľ obyčajná,6,10,1,2
