@@ -111,8 +111,8 @@ public class GeneratorService {
         Random random = new Random(System.currentTimeMillis());
         double bratislavaLat = 48.1486d;
         double bratislavaLon = 17.1077d;
-        double deviationLat = bratislavaLat * (2d * random.nextDouble()) + bratislavaLat/2;
-        double deviationLon = bratislavaLon * (1.7d * random.nextDouble()) + bratislavaLon/2;
+        double deviationLat = bratislavaLat + (random.nextDouble() * 2 - 1);
+        double deviationLon = bratislavaLon + (random.nextDouble() * 2 - 1);
 
         return new Location(
             String.valueOf(deviationLat),

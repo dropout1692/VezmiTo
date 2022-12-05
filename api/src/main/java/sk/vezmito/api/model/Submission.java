@@ -19,7 +19,6 @@ import sk.vezmito.api.enums.SubmissionType;
 @AllArgsConstructor
 public class Submission {
 
-    @Setter(AccessLevel.NONE)
     private String id;
 
     private Author author;
