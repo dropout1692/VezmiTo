@@ -1,5 +1,6 @@
 package sk.vezmito.api.services;
 
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +28,8 @@ public class GeneratorService {
     public static final String GEN_TAG = "Generated";
     public static final String GEN_HOST = "vezmito-generated.sk";
     public static final String GEN_EMAIL = "0-%s@" + GEN_HOST;
+    public static final double BRATISLAVA_LAT = 48.1486d;
+    public static final double BRATISLAVA_LON = 17.1077d;
 
     @Autowired
     SubmissionDAO submissionDAO;
@@ -108,11 +111,9 @@ public class GeneratorService {
 
 //        48.1486° N, 17.1077° E - Bratislava
 
-        Random random = new Random(System.currentTimeMillis());
-        double bratislavaLat = 48.1486d;
-        double bratislavaLon = 17.1077d;
-        double deviationLat = bratislavaLat + (random.nextDouble() * 2 - 1);
-        double deviationLon = bratislavaLon + (random.nextDouble() * 2 - 1);
+        Random random = new SecureRandom();
+        double deviationLat = BRATISLAVA_LAT + (random.nextDouble() * 2 - 1);
+        double deviationLon = BRATISLAVA_LON + (random.nextDouble() * 2 - 1);
 
         return new Location(
             String.valueOf(deviationLat),
