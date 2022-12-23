@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import sk.vezmito.api.common.Location;
+import sk.vezmito.api.model.Location;
 import sk.vezmito.api.dto.AuthorRequestDTO;
 import sk.vezmito.api.dto.CreateSubmissionDTO;
 import sk.vezmito.api.dto.LiteSubmission;
@@ -143,11 +143,13 @@ public class SubmissionService {
 
             SubmissionEntity submissionEntity = foundEntity.get();
 
+            //todo: probably update more than location and time
             submissionEntity.setUpdatedAt(LocalDateTime.now());
             submissionEntity.setLocation(new Location(dto.getGpsLatitude(), dto.getGpsLongitude()));
             submissionEntity.setSubmissionState(SubmissionState.CREATED);
+            SubmissionEntity savedEntity = submissionDAO.save(submissionEntity);
 
-            Submission submission = modelMapper.map(submissionEntity, Submission.class);
+            Submission submission = modelMapper.map(savedEntity, Submission.class);
 
             headers.add("message", String.format("Submission %s updated.",
                 submission.getId()

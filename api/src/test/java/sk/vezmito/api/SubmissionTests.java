@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
-import sk.vezmito.api.common.Tag;
+import sk.vezmito.api.model.Tag;
 import sk.vezmito.api.dto.AuthorRequestDTO;
 import sk.vezmito.api.dto.CreateSubmissionDTO;
 import sk.vezmito.api.dto.UpdateSubmissionDTO;

@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
-import sk.vezmito.api.common.Location;
+import sk.vezmito.api.model.Location;
 import sk.vezmito.api.entities.converters.FlagsToJsonConverter;
 import sk.vezmito.api.entities.converters.LocalDateTimeConverter;
 import sk.vezmito.api.entities.converters.LocationConverter;

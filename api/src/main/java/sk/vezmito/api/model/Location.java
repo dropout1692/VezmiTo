@@ -1,4 +1,4 @@
-package sk.vezmito.api.common;
+package sk.vezmito.api.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

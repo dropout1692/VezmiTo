@@ -4,7 +4,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import sk.vezmito.api.common.Tag;
+import sk.vezmito.api.model.Tag;
 import sk.vezmito.api.enums.SubmissionType;
 
 @Getter

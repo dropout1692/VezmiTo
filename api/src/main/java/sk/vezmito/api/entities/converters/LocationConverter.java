@@ -1,7 +1,7 @@
 package sk.vezmito.api.entities.converters;
 
 import javax.persistence.AttributeConverter;
-import sk.vezmito.api.common.Location;
+import sk.vezmito.api.model.Location;
 
 public class LocationConverter implements AttributeConverter<Location, String> {
 

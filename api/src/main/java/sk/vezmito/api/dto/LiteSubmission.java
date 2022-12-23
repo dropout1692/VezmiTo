@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sk.vezmito.api.common.Location;
+import sk.vezmito.api.model.Location;
 import sk.vezmito.api.enums.SubmissionType;
 
 @Getter
