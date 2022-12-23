@@ -4,7 +4,6 @@ import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -14,6 +13,7 @@ import sk.vezmito.api.common.Location;
 import sk.vezmito.api.common.Tag;
 import sk.vezmito.api.entities.AuthorEntity;
 import sk.vezmito.api.entities.SubmissionEntity;
+import sk.vezmito.api.entities.TagEntity;
 import sk.vezmito.api.enums.SubmissionState;
 import sk.vezmito.api.enums.SubmissionType;
 import sk.vezmito.api.persistence.AuthorDAO;
@@ -47,7 +47,7 @@ public class GeneratorService {
         List<SubmissionEntity> submissions = submissionDAO.findAll();
         submissions.stream()
             .filter(s -> {
-                for (Tag tag : s.getTags()) {
+                for (TagEntity tag : s.getTags()) {
                     if (tag.getName().equals(GEN_TAG)) {
                         return true;
                     }
@@ -100,7 +100,7 @@ public class GeneratorService {
         entity.setPin(PinUtil.randomPin());
         entity.setSubmissionState(SubmissionState.CREATED);
         entity.setSubmissionType(type);
-        entity.setTags(Collections.singletonList(getGeneratedTag()));
+        entity.setTags(new ArrayList<>());
         entity.setTitle(String.format("Submission %s", id));
 
         return submissionDAO.save(entity);
@@ -125,7 +125,7 @@ public class GeneratorService {
 
         Tag tag = new Tag();
         tag.setId(UUID.randomUUID().toString());
-        tag.setHexColor(GEN_HEX);
+        tag.setColor(GEN_HEX);
         tag.setName(GEN_TAG);
         tag.setPermanent(true);
 

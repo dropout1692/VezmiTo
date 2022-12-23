@@ -7,6 +7,7 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -16,11 +17,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import sk.vezmito.api.common.Location;
-import sk.vezmito.api.common.Tag;
 import sk.vezmito.api.entities.converters.FlagsToJsonConverter;
 import sk.vezmito.api.entities.converters.LocalDateTimeConverter;
 import sk.vezmito.api.entities.converters.LocationConverter;
-import sk.vezmito.api.entities.converters.TagsToJsonConverter;
 import sk.vezmito.api.enums.SubmissionState;
 import sk.vezmito.api.enums.SubmissionType;
 import sk.vezmito.api.model.Flag;
@@ -59,8 +58,8 @@ public class SubmissionEntity {
 
     private String description;
 
-    @Convert(converter = TagsToJsonConverter.class)
-    private List<Tag> tags;
+    @OneToMany
+    private List<TagEntity> tags;
 
     @Convert(converter = FlagsToJsonConverter.class)
     private List<Flag> flags;

@@ -16,5 +16,5 @@ public class Tag {
     private String id;
     private boolean permanent;
     private String name;
-    private String hexColor;
+    private String color;
 }

@@ -107,7 +107,7 @@ public class GeneratorTests {
         nonGeneratedEntity.setPin(PinUtil.randomPin());
         nonGeneratedEntity.setSubmissionState(SubmissionState.CREATED);
         nonGeneratedEntity.setSubmissionType(SubmissionType.FREEBIE);
-        nonGeneratedEntity.setTags(Collections.singletonList(generatorService.getGeneratedTag()));
+        nonGeneratedEntity.setTags(new ArrayList<>());
         nonGeneratedEntity.setTitle(String.format("Testing submission %s", "NON-GEN"));
 
         submissionDAO.save(nonGeneratedEntity);
