@@ -8,6 +8,6 @@ class ApiApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("Testing!");
 	}
-
 }

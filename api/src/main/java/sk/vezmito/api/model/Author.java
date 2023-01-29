@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import sk.vezmito.api.entities.AuthorEntity;
 
 @Getter
 @Setter

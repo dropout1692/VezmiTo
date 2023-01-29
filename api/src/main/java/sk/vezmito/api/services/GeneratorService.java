@@ -56,10 +56,10 @@ public class GeneratorService {
             })
             .forEach(s -> submissionDAO.delete(s));
 
-        List<AuthorEntity> authors = authorDAO.findAll();
-        authors.stream()
-            .filter(a -> a.getEmail().contains(GEN_HOST))
-            .forEach(a -> authorDAO.delete(a));
+//        List<AuthorEntity> authors = authorDAO.findAll();
+//        authors.stream()
+//            .filter(a -> a.getEmail().contains(GEN_HOST))
+//            .forEach(a -> authorDAO.delete(a));
     }
 
     public List<String> generateSubmissions(int count, SubmissionType type) {
