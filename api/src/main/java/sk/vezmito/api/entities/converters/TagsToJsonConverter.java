@@ -1,10 +1,10 @@
 package sk.vezmito.api.entities.converters;
 
+import jakarta.persistence.AttributeConverter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
-import javax.persistence.AttributeConverter;
 import sk.vezmito.api.common.Tag;
 
 public class TagsToJsonConverter implements AttributeConverter<List<Tag>, String> {

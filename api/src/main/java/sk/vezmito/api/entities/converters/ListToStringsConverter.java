@@ -1,8 +1,8 @@
 package sk.vezmito.api.entities.converters;
 
+import jakarta.persistence.AttributeConverter;
 import java.util.Arrays;
 import java.util.List;
-import javax.persistence.AttributeConverter;
 
 public class ListToStringsConverter implements AttributeConverter<List<String>, String> {
 

@@ -3,7 +3,7 @@ package sk.vezmito.api.entities.converters;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import javax.persistence.AttributeConverter;
+import jakarta.persistence.AttributeConverter;
 
 //todo:
 public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, String> {
