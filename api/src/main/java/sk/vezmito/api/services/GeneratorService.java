@@ -28,8 +28,8 @@ public class GeneratorService {
     public static final String GEN_TAG = "Generated";
     public static final String GEN_HOST = "vezmito-generated.sk";
     public static final String GEN_EMAIL = "0-%s@" + GEN_HOST;
-    public static final double BRATISLAVA_LAT = 48.1486d;
-    public static final double BRATISLAVA_LON = 17.1077d;
+    public static final double BRATISLAVA_LAT = 48.0926d;
+    public static final double BRATISLAVA_LON = 17.0634d;
 
     @Autowired
     SubmissionDAO submissionDAO;
