@@ -11,8 +11,6 @@ Lorem ipsum dolor sit amet.
  - meno <email>
  - meno <email>
  - meno <email>
- 
-
 
 ## Development setup
 

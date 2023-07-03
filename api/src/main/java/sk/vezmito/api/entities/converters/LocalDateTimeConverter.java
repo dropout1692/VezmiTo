@@ -1,11 +1,10 @@
 package sk.vezmito.api.entities.converters;
 
+import jakarta.persistence.AttributeConverter;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import jakarta.persistence.AttributeConverter;
 
-//todo:
 public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, String> {
 
     @Override

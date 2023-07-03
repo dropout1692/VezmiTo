@@ -74,7 +74,7 @@ public class SubmissionEntity {
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime updatedAt;
 
-    public boolean wasUpdated(){
+    public boolean wasUpdated() {
         return !createdAt.equals(updatedAt);
     }
 }

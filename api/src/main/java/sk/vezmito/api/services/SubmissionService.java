@@ -73,7 +73,7 @@ public class SubmissionService {
         }
     }
 
-    public ResponseEntity<List<LiteSubmission>> getAllLocations(){
+    public ResponseEntity<List<LiteSubmission>> getAllLocations() {
 
         List<SubmissionEntity> foundSubmissions = submissionDAO.findAll();
         List<LiteSubmission> submissions = foundSubmissions.stream()

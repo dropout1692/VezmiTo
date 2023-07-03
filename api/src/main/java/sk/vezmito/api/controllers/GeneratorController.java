@@ -17,7 +17,6 @@ public class GeneratorController {
     @Autowired
     GeneratorService service;
 
-    //todo: holy shit make this more difficult
     @DeleteMapping("/wipe")
     public void wipeDatabase() {
         service.wipeDatabase();
