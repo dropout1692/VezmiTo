@@ -12,7 +12,9 @@ Lorem ipsum dolor sit amet.
  - meno <email>
  - meno <email>
  
+## Swagger UI
 
+http://localhost:1337/swagger-ui.html
 
 ## Development setup
 

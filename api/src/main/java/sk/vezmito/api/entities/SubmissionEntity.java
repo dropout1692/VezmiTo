@@ -1,15 +1,7 @@
 package sk.vezmito.api.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +16,9 @@ import sk.vezmito.api.entities.converters.TagsToJsonConverter;
 import sk.vezmito.api.enums.SubmissionState;
 import sk.vezmito.api.enums.SubmissionType;
 import sk.vezmito.api.model.Flag;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter

@@ -19,7 +19,7 @@ import sk.vezmito.api.services.SubmissionService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/api/v1/submissions")
+@RequestMapping("/api/submissions")
 public class SubmissionController {
 
     private final SubmissionService service;
