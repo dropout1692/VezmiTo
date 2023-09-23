@@ -5,6 +5,6 @@ module.exports = {
   theme: {
     extend: {},
   },
-  prefix: 'vt-',
+  prefix: '',
   plugins: [],
 }

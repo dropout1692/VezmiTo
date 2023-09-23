@@ -23,7 +23,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {},
   "browserslist": {
@@ -42,14 +43,15 @@
     "@types/json-stringify-safe": "^5.0.0",
     "@types/react-leaflet-markercluster": "^3.0.1",
     "autoprefixer": "^10.4.15",
+    "gh-pages": "^6.0.0",
     "install": "^0.13.0",
     "npm": "^10.1.0",
     "postcss": "^8.4.28",
+    "prettier": "^2.8.4",
     "sass": "^1.68.0",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9",
-    "prettier": "^2.8.4"
+    "vite": "^4.4.9"
   },
   "prettier": "./.prettierrc.js"
 }
