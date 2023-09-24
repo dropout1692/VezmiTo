@@ -1,10 +1,9 @@
-import axios from "axios";
-import { appConfig } from "../config/app";
+import axios from 'axios'
 
 const axiosInstance = axios.create({
-  baseURL: appConfig.backendURL,
+  baseURL: import.meta.env.VITE_BACKEND_URL,
   headers: {
-    Accept: "application/json, text/plain, */*",
+    Accept: 'application/json, text/plain, */*',
   },
-});
-export default axiosInstance;
+})
+export default axiosInstance
