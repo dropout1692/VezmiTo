@@ -6,6 +6,7 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch'
 import { GeoSearch } from '../../components/GeoSearch/GeoSearch'
 import { ComponentResize } from './components/ComponentResize/ComponentResize'
 import { ChangeView } from './components/ChangeView/ChangeView'
+import { LocateControl } from './components/LocateControl/LocateControl'
 
 const INITIAL_ZOOM = 5
 const INITIAL_LOCATION = {
@@ -24,6 +25,7 @@ export const Map = ({ latitude, longitude, data }) => {
       <ComponentResize />
       <ChangeView latitude={latitude} longitude={longitude} />
       <GeoSearch provider={new OpenStreetMapProvider()} />
+      <LocateControl position="topleft" />
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

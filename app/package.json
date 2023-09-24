@@ -23,6 +23,7 @@
     "json-stringify-safe": "^5.0.1",
     "leaflet": "^1.9.4",
     "leaflet-geosearch": "^3.9.0",
+    "leaflet.locatecontrol": "^0.79.0",
     "leaflet.markercluster": "^1.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@types/json-stringify-safe": "^5.0.0",
+    "@types/leaflet.locatecontrol": "^0.74.2",
     "@types/react-leaflet-markercluster": "^3.0.1",
     "autoprefixer": "^10.4.15",
     "gh-pages": "^6.0.0",

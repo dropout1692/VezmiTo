@@ -61,7 +61,7 @@ export const AddModal = ({
               </label>
               <Combobox
                 onChange={({ label }) => handleOnChange('id', label)}
-                placeholder={'Jablko'}
+                placeholder={'Choose'}
                 data={[
                   { value: 0, label: 'baklažán' },
                   { value: 1, label: 'biela reďkovka' },
