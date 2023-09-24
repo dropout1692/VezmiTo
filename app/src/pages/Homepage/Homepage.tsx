@@ -10,7 +10,7 @@ export const Homepage = () => {
   const { data, silentLoading } = useGetSubmissions()
   const [showAddSubmissionModal, setShowAddSubmissionModal] =
     useState<boolean>(false)
-  const { latitude, longitude } = useGeolocation()
+  const { geoData } = useGeolocation({ getOnInit: true })
 
   const toggleSetShowAddSubmissionModal = useCallback(() => {
     setShowAddSubmissionModal((prevState) => !prevState)
@@ -27,7 +27,11 @@ export const Homepage = () => {
         onOpenChange={toggleSetShowAddSubmissionModal}
         onSubmit={console.log}
       />
-      <Map latitude={latitude} longitude={longitude} data={data} />
+      <Map
+        latitude={geoData?.coords?.latitude}
+        longitude={geoData?.coords?.longitude}
+        data={data}
+      />
     </div>
   )
 }

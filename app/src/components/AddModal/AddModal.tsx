@@ -6,11 +6,27 @@ import { Combobox } from '../Combobox/Combobox'
 import { useCallback, useEffect, useState } from 'react'
 import stringify from '../../libs/tools/stringify'
 import clsx from 'clsx'
+import { useGeolocation } from '../../hooks/location/useGeolocation'
 
-export const AddModal = ({ onOpenChange, open, onSubmit }) => {
-  const [output, setOutput] = useState({})
+type OutputDataType = {
+  id?: string
+  photo?: any
+  coords?: GeolocationCoordinates
+}
 
-  const handleOnChange = (name, data) => {
+export const AddModal = ({
+  onOpenChange,
+  open,
+  onSubmit,
+}: {
+  onOpenChange?: () => void
+  open?: boolean
+  onSubmit: (data: OutputDataType) => void
+}) => {
+  const [output, setOutput] = useState<OutputDataType>({})
+  const { geoData, getCurrentPosition } = useGeolocation({ getOnInit: false })
+
+  const handleOnChange = (name: string, data: any) => {
     setOutput((prevState) => ({
       ...prevState,
       [`${name}`]: data,
@@ -18,14 +34,20 @@ export const AddModal = ({ onOpenChange, open, onSubmit }) => {
   }
 
   const handleOnSubmit = useCallback(() => {
-    onSubmit(output)
-  }, [stringify(output)])
-
-  const isSubmitDisabled = !(output.id && output.photo)
+    onSubmit({
+      coords: geoData?.coords,
+      ...output,
+    })
+  }, [stringify({ output, geoData })])
 
   useEffect(() => {
+    if (open) {
+      getCurrentPosition()
+    }
     return () => setOutput({})
-  }, [])
+  }, [open])
+
+  const isSubmitDisabled = !(output.id && output.photo && geoData?.coords)
 
   return (
     <Dialog.Root onOpenChange={onOpenChange} open={open}>
