@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sk.vezmito.api.dto.AuthorRequestDTO;
 import sk.vezmito.api.entities.AuthorEntity;
-import sk.vezmito.api.model.Author;
 import sk.vezmito.api.persistence.AuthorDAO;
 
 @Service

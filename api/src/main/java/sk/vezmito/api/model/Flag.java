@@ -1,7 +1,11 @@
 package sk.vezmito.api.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import sk.vezmito.api.enums.FlagType;
 
+@Data
+@AllArgsConstructor
 public class Flag {
 
     private Author author;

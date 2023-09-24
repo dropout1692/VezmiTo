@@ -3,19 +3,15 @@ package sk.vezmito.api.model;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import sk.vezmito.api.common.Location;
 import sk.vezmito.api.common.Tag;
-import sk.vezmito.api.entities.SubmissionEntity;
 import sk.vezmito.api.enums.SubmissionState;
 import sk.vezmito.api.enums.SubmissionType;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 public class Submission {
 

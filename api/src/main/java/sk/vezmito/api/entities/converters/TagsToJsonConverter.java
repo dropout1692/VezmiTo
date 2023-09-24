@@ -1,9 +1,9 @@
 package sk.vezmito.api.entities.converters;
 
-import jakarta.persistence.AttributeConverter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.AttributeConverter;
 import java.util.List;
 import sk.vezmito.api.common.Tag;
 

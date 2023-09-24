@@ -1,20 +1,16 @@
 package sk.vezmito.api.common;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Tag {
 
     private String id;
-    private boolean permanent;
     private String name;
     private String hexColor;
+    private boolean permanent;
 }

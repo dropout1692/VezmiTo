@@ -2,13 +2,11 @@ package sk.vezmito.api.dto;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import sk.vezmito.api.common.Tag;
 import sk.vezmito.api.enums.SubmissionType;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 public class UpdateSubmissionDTO {
 
