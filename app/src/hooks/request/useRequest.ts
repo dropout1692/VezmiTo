@@ -1,53 +1,55 @@
-import { useState, useEffect, useCallback } from "react";
-import stringify from "../../libs/tools/stringify";
-import { apiClient, RequestMethodType } from "../../api/apiClient";
+import { useState, useEffect, useCallback } from 'react'
+import stringify from '../../libs/tools/stringify'
+import { apiClient, RequestMethodType } from '../../api/apiClient'
 
 type ApiResponseType = {
-  data: any;
+  data: any
   errors?: {
-    message: string;
-  }[];
-};
+    message: string
+  }[]
+}
 
-type VariablesType = Record<string, any>;
+type VariablesType = Record<string, any>
 
-type useRequestProps = {
-  readonly url: string;
-  readonly type?: RequestMethodType;
-  readonly variables?: VariablesType;
-  readonly invalidateCond?: Array<string | number>;
-  readonly runOnInit?: boolean;
-};
+type UseRequestProps = {
+  readonly url: string
+  readonly method?: RequestMethodType
+  readonly variables?: VariablesType
+  readonly invalidateCond?: Array<string | number>
+  readonly runOnInit?: boolean
+}
 
 type SendRequestConfig = {
-  readonly mergeVars?: boolean;
-  readonly useAsPromise?: boolean;
-  readonly onlySilentLoading?: boolean;
-  readonly onlySilentError?: boolean;
-};
+  readonly mergeVars?: boolean
+  readonly useAsPromise?: boolean
+  readonly onlySilentLoading?: boolean
+  readonly onlySilentError?: boolean
+}
+
+export type RequestErrorsType =
+  | {
+      message: string
+      code: string
+    }[]
+  | null
+  | undefined
 
 type SendRequestResult = Promise<{
-  data: Record<string, any> | null | undefined;
-  errors:
-    | {
-        message: string;
-        code: string;
-      }[]
-    | null
-    | undefined;
-}> | void;
+  data: Record<string, any> | null | undefined
+  errors: RequestErrorsType
+}> | void
 
 type ResultType = {
-  readonly loading: boolean;
-  readonly silentLoading: boolean;
-  readonly error: boolean;
-  readonly silentError: boolean;
-  readonly data: Record<string, any> | null;
+  readonly loading: boolean
+  readonly silentLoading: boolean
+  readonly error: boolean
+  readonly silentError: boolean
+  readonly data: Record<string, any> | null
   readonly sendRequest: (
     vars?: VariablesType,
-    config?: SendRequestConfig
-  ) => SendRequestResult;
-};
+    config?: SendRequestConfig,
+  ) => SendRequestResult
+}
 
 const INITIAL_STATE = {
   loading: true,
@@ -55,45 +57,45 @@ const INITIAL_STATE = {
   error: false,
   silentError: false,
   data: null,
-};
+}
 
 export function useRequest({
   url,
-  type,
+  method,
   invalidateCond = [],
   variables = {},
   runOnInit = true,
-}: useRequestProps): ResultType {
+}: UseRequestProps): ResultType {
   if (!url) {
-    throw Error("[useRequest] - Property `url` not defined");
+    throw Error('[useRequest] - Property `url` not defined')
   }
 
   const [state, setState] = useState({
     ...INITIAL_STATE,
     loading: runOnInit,
     silentLoading: runOnInit,
-  });
+  })
 
   const changeState = useCallback(
     (args: VariablesType) => {
       setState((prevState) => ({
         ...prevState,
         ...args,
-      }));
+      }))
     },
-    [stringify(state)]
-  );
+    [stringify(state)],
+  )
 
   function sendRequest(
     vars: VariablesType = {},
-    config?: SendRequestConfig
+    config?: SendRequestConfig,
   ): SendRequestResult {
     const {
-      mergeVars = true,
+      mergeVars = false,
       onlySilentLoading = false,
       onlySilentError = false,
       useAsPromise = false,
-    } = config || {};
+    } = config || {}
 
     if (!useAsPromise) {
       changeState({
@@ -101,13 +103,13 @@ export function useRequest({
         silentLoading: true,
         error: false,
         silentError: false,
-      });
+      })
     }
 
     const requestPromise = apiClient()
       .request({
         url,
-        method: type,
+        method,
         data: mergeVars
           ? {
               ...variables,
@@ -116,11 +118,6 @@ export function useRequest({
           : vars,
       })
       .then((res: ApiResponseType) => {
-        // const { errors = [] } = res;
-        // const requestErrors = errors.map(
-        //   ({ message = "", extensions: { code = "" } }) => ({ message, code })
-        // );
-
         if (!useAsPromise) {
           changeState({
             data: res,
@@ -128,16 +125,16 @@ export function useRequest({
             silentLoading: false,
             error: false,
             silentError: false,
-          });
+          })
         }
 
         return {
           data: res,
           errors: [],
-        };
+        }
       })
       .catch((err: any) => {
-        console.warn("[apiClient]", err.message);
+        console.warn('[apiClient]', err.message)
 
         if (!useAsPromise) {
           changeState({
@@ -145,21 +142,21 @@ export function useRequest({
             silentError: true,
             loading: false,
             silentLoading: false,
-          });
+          })
         }
 
         return {
           data: null,
-          errors: [{ message: err.message, code: "" }],
-        };
-      });
-    if (useAsPromise) return requestPromise;
+          errors: [{ message: err.message, code: '' }],
+        }
+      })
+    if (useAsPromise) return requestPromise
   }
 
   useEffect(() => {
-    if (!runOnInit) return;
-    sendRequest();
-  }, [url, stringify(variables), ...invalidateCond]);
+    if (!runOnInit) return
+    sendRequest()
+  }, [url, stringify(variables), ...invalidateCond])
 
   return {
     loading: state.loading,
@@ -168,5 +165,5 @@ export function useRequest({
     silentError: state.silentError,
     data: state.data,
     sendRequest,
-  };
+  }
 }

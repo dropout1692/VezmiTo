@@ -7,9 +7,12 @@ import { useCallback, useEffect, useState } from 'react'
 import stringify from '../../libs/tools/stringify'
 import clsx from 'clsx'
 import { useGeolocation } from '../../hooks/location/useGeolocation'
+import { ImageUpload } from '../ImageUpload/ImageUpload'
+import { useImageUpload } from '../../hooks/upload/useImageUpload'
+import { Spinner } from '../Spinner/Spinner'
 
 type OutputDataType = {
-  id?: string
+  tag?: string
   photo?: any
   coords?: GeolocationCoordinates
 }
@@ -24,6 +27,8 @@ export const AddModal = ({
   onSubmit: (data: OutputDataType) => void
 }) => {
   const [output, setOutput] = useState<OutputDataType>({})
+  const [loading, setLoading] = useState<boolean>(false)
+  const imageUpload = useImageUpload()
   const { geoData, getCurrentPosition } = useGeolocation({ getOnInit: false })
 
   const handleOnChange = (name: string, data: any) => {
@@ -33,12 +38,29 @@ export const AddModal = ({
     }))
   }
 
-  const handleOnSubmit = useCallback(() => {
-    onSubmit({
-      coords: geoData?.coords,
-      ...output,
-    })
-  }, [stringify({ output, geoData })])
+  const handleOnSubmit = useCallback(
+    async (e) => {
+      e.preventDefault()
+      setLoading(true)
+      await imageUpload(output.photo, {
+        onSuccess: (imageUploadData) => {
+          setLoading(false)
+          onSubmit({
+            tag: output?.tag,
+            coords: geoData?.coords,
+            photo: imageUploadData.url,
+          })
+          if (onOpenChange) {
+            onOpenChange()
+          }
+        },
+        onError: () => {
+          setLoading(false)
+        },
+      })
+    },
+    [stringify({ output, geoData })],
+  )
 
   useEffect(() => {
     if (open) {
@@ -47,7 +69,7 @@ export const AddModal = ({
     return () => setOutput({})
   }, [open])
 
-  const isSubmitDisabled = !(output.id && output.photo && geoData?.coords)
+  const isSubmitDisabled = !(output.photo && output.tag && geoData.coords)
 
   return (
     <Dialog.Root onOpenChange={onOpenChange} open={open}>
@@ -60,7 +82,7 @@ export const AddModal = ({
                 Select category
               </label>
               <Combobox
-                onChange={({ label }) => handleOnChange('id', label)}
+                onChange={({ label }) => handleOnChange('tag', label)}
                 placeholder={'Choose'}
                 data={[
                   { value: 0, label: 'baklažán' },
@@ -90,36 +112,12 @@ export const AddModal = ({
               <label className="text-sm font-bold text-gray-500 tracking-wide">
                 Attach photo
               </label>
-              <div className="flex items-center justify-center w-full">
-                <label className="flex flex-col rounded-lg border-4 border-dashed w-full min-h-40 p-10 group text-center">
-                  <div className="h-full w-full text-center flex flex-col items-center justify-center ">
-                    <div className="text-5xl text-primary p-4">
-                      {output?.photo ? (
-                        <img
-                          className="h-20 object-contain"
-                          src={output?.photo}
-                        />
-                      ) : (
-                        <Icon provider="phosphor" icon="tree" />
-                      )}
-                    </div>
-                    <p className="pointer-none text-gray-500 text-sm ">
-                      <span>Drag and drop</span> files here <br /> or select a
-                      file from your gallery
-                    </p>
-                  </div>
-                  <input
-                    type="file"
-                    className="hidden"
-                    onChange={(e) =>
-                      handleOnChange(
-                        'photo',
-                        URL.createObjectURL(e.target.files[0]),
-                      )
-                    }
-                  />
-                </label>
-              </div>
+              <ImageUpload
+                onChange={(file) => handleOnChange('photo', file)}
+                previewSrc={
+                  output?.photo ? URL.createObjectURL(output?.photo) : ''
+                }
+              />
             </div>
             <Dialog.Close asChild>
               <div>
@@ -128,10 +126,11 @@ export const AddModal = ({
                   onClick={handleOnSubmit}
                   disabled={isSubmitDisabled}
                   className={clsx(
-                    'box-border flex w-full justify-center bg-primary text-white p-4  rounded-full font-semibold  shadow-lg cursor-pointer transition ease-in duration-300 mt-5',
+                    'box-border flex w-full justify-center items-center bg-primary text-white p-4  rounded-full font-semibold  shadow-lg cursor-pointer transition ease-in duration-300 mt-5',
                     { 'opacity-50': isSubmitDisabled },
                   )}
                 >
+                  <Spinner show={loading} />
                   Submit
                 </button>
               </div>

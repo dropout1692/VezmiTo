@@ -7,7 +7,7 @@ import { AddButton } from '../../components/AddButton/AddButton'
 import { AddModal } from '../../components/AddModal/AddModal'
 
 export const Homepage = () => {
-  const { data, silentLoading } = useGetSubmissions()
+  const { data, silentLoading, sendRequest: refetchData } = useGetSubmissions()
   const [showAddSubmissionModal, setShowAddSubmissionModal] =
     useState<boolean>(false)
   const { geoData } = useGeolocation({ getOnInit: true })
@@ -25,7 +25,10 @@ export const Homepage = () => {
       <AddModal
         open={showAddSubmissionModal}
         onOpenChange={toggleSetShowAddSubmissionModal}
-        onSubmit={console.log}
+        onSubmit={(data) => {
+          alert(JSON.stringify(data, null, 2))
+          refetchData()
+        }}
       />
       <Map
         latitude={geoData?.coords?.latitude}
