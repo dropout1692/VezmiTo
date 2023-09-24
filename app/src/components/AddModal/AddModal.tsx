@@ -2,9 +2,31 @@ import './addModal.scss'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Icon } from '../Icon'
 import * as Form from '@radix-ui/react-form'
-import { Select } from '../Form/components/Select/Select'
+import { Combobox } from '../Combobox/Combobox'
+import { useCallback, useEffect, useState } from 'react'
+import stringify from '../../libs/tools/stringify'
+import clsx from 'clsx'
 
 export const AddModal = ({ onOpenChange, open, onSubmit }) => {
+  const [output, setOutput] = useState({})
+
+  const handleOnChange = (name, data) => {
+    setOutput((prevState) => ({
+      ...prevState,
+      [`${name}`]: data,
+    }))
+  }
+
+  const handleOnSubmit = useCallback(() => {
+    onSubmit(output)
+  }, [stringify(output)])
+
+  const isSubmitDisabled = !(output.id && output.photo)
+
+  useEffect(() => {
+    return () => setOutput({})
+  }, [])
+
   return (
     <Dialog.Root onOpenChange={onOpenChange} open={open}>
       <Dialog.Portal>
@@ -12,33 +34,33 @@ export const AddModal = ({ onOpenChange, open, onSubmit }) => {
         <Dialog.Content className="DialogContent">
           <Form.Root className="mt-8 space-y-3">
             <div className="grid grid-cols-1 space-y-2">
-              <Select
-                onChange={console.log}
-                placeholder="Select category"
-                options={[
-                  {
-                    value: 'Jablko',
-                    label: 'jablko',
-                  },
-                  {
-                    value: 'Hruska',
-                    label: 'hruska',
-                  },
-
-                  {
-                    value: 'Hruska2',
-                    label: 'hruska2',
-                  },
-
-                  {
-                    value: 'Hruska3',
-                    label: 'hruska3',
-                  },
-
-                  {
-                    value: 'Hruska4',
-                    label: 'hruska4',
-                  },
+              <label className="text-sm font-bold text-gray-500 tracking-wide">
+                Select category
+              </label>
+              <Combobox
+                onChange={({ label }) => handleOnChange('id', label)}
+                placeholder={'Jablko'}
+                data={[
+                  { value: 0, label: 'baklažán' },
+                  { value: 1, label: 'biela reďkovka' },
+                  { value: 2, label: 'brokolica' },
+                  { value: 3, label: 'cesnak' },
+                  { value: 4, label: 'cibuľa' },
+                  { value: 5, label: 'cuketa' },
+                  { value: 6, label: 'cvikla' },
+                  { value: 7, label: 'hrach' },
+                  { value: 8, label: 'hrozno' },
+                  { value: 9, label: 'hruška' },
+                  { value: 10, label: 'jablko' },
+                  { value: 11, label: 'jahoda' },
+                  { value: 12, label: 'jahňací šalát' },
+                  { value: 13, label: 'kaleráb' },
+                  { value: 14, label: 'kapusta' },
+                  { value: 15, label: 'karfiol' },
+                  { value: 16, label: 'mangold' },
+                  { value: 17, label: 'marhuľa' },
+                  { value: 18, label: 'mrkva' },
+                  { value: 19, label: 'ostružina' },
                 ]}
               />
             </div>
@@ -47,10 +69,17 @@ export const AddModal = ({ onOpenChange, open, onSubmit }) => {
                 Attach photo
               </label>
               <div className="flex items-center justify-center w-full">
-                <label className="flex flex-col rounded-lg border-4 border-dashed w-full h-40 p-10 group text-center">
+                <label className="flex flex-col rounded-lg border-4 border-dashed w-full min-h-40 p-10 group text-center">
                   <div className="h-full w-full text-center flex flex-col items-center justify-center ">
                     <div className="text-5xl text-primary p-4">
-                      <Icon provider="phosphor" icon="tree" />
+                      {output?.photo ? (
+                        <img
+                          className="h-20 object-contain"
+                          src={output?.photo}
+                        />
+                      ) : (
+                        <Icon provider="phosphor" icon="tree" />
+                      )}
                     </div>
                     <p className="pointer-none text-gray-500 text-sm ">
                       <span>Drag and drop</span> files here <br /> or select a
@@ -60,7 +89,12 @@ export const AddModal = ({ onOpenChange, open, onSubmit }) => {
                   <input
                     type="file"
                     className="hidden"
-                    onChange={console.log}
+                    onChange={(e) =>
+                      handleOnChange(
+                        'photo',
+                        URL.createObjectURL(e.target.files[0]),
+                      )
+                    }
                   />
                 </label>
               </div>
@@ -69,9 +103,12 @@ export const AddModal = ({ onOpenChange, open, onSubmit }) => {
               <div>
                 <button
                   type="button"
-                  onClick={onSubmit}
-                  className="box-border	flex w-full justify-center bg-primary text-white p-4  rounded-full
-                                    font-semibold  shadow-lg cursor-pointer transition ease-in duration-300 mt-5"
+                  onClick={handleOnSubmit}
+                  disabled={isSubmitDisabled}
+                  className={clsx(
+                    'box-border flex w-full justify-center bg-primary text-white p-4  rounded-full font-semibold  shadow-lg cursor-pointer transition ease-in duration-300 mt-5',
+                    { 'opacity-50': isSubmitDisabled },
+                  )}
                 >
                   Submit
                 </button>
