@@ -15,7 +15,7 @@ import sk.vezmito.api.services.MediaService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/api/v1/media")
+@RequestMapping("/api/media")
 public class MediaController {
 
     private final MediaService service;

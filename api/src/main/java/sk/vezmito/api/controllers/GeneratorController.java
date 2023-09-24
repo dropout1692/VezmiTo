@@ -11,7 +11,7 @@ import sk.vezmito.api.enums.SubmissionType;
 import sk.vezmito.api.services.GeneratorService;
 
 @RestController
-@RequestMapping("/api/v1/generator")
+@RequestMapping("/api/generator")
 public class GeneratorController {
 
     @Autowired
