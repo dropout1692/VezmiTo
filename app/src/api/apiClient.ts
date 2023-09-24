@@ -16,9 +16,11 @@ export function apiClient({ customConfig = {} } = {}) {
       return axiosInstance({
         url,
         method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        ...(method === 'get' && {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }),
         ...(data && { data }),
         ...customConfig,
       }).then((res) => res.data)
