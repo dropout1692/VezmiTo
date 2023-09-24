@@ -1,0 +1,9 @@
+{
+  "name": "vezmi-to-web",
+  "version": "0.0.1",
+  "homepage": "https://dropout1692.github.io/VezmiTo/",
+  "scripts": {
+    "predeploy": "cd app && npm run build",
+    "deploy": "cd app && npx gh-pages -d build"
+  }
+}
