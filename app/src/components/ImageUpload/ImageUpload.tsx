@@ -27,6 +27,8 @@ export const ImageUpload = ({
           type="file"
           className="hidden"
           onChange={(e) => onChange(e.target.files[0])}
+          accept="image/*"
+          capture
         />
       </label>
     </div>
