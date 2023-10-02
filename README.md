@@ -14,7 +14,7 @@ Lorem ipsum dolor sit amet.
  
 ## Swagger UI
 
-[http://localhost:1337/swagger-ui.html](http://dpt.wtf:1337/vezmito/swagger-ui/index.html](http://dpt.wtf:1337/vezmito/swagger-ui/index.html)
+http://dpt.wtf:1337/vezmito/swagger-ui/index.html
 
 ## Development setup
 
