@@ -14,7 +14,7 @@ Lorem ipsum dolor sit amet.
  
 ## Swagger UI
 
-https://vezmito.dpt.wtf/swagger-ui/index.html
+https://dpt.wtf:1337/swagger-ui/index.html
 
 ## Development setup
 
