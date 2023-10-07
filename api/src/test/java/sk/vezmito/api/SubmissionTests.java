@@ -63,9 +63,9 @@ public class SubmissionTests {
 
         Tag tag = new Tag(
             "someId",
-            true,
             "Test tag",
-            "123FFF"
+            "123FFF",
+            true
         );
         UpdateSubmissionDTO updateDTO = new UpdateSubmissionDTO(
             "Updated title",
