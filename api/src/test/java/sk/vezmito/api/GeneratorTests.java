@@ -67,7 +67,7 @@ public class GeneratorTests {
         List<SubmissionEntity> generatedEntities = submissionDAO.findAll();
         List<Submission> generatedSubmissions = generatedEntities.stream()
             .map(e -> modelMapper.map(e, Submission.class))
-            .collect(Collectors.toList());
+            .toList();
 
         assertThat(generatedSubmissions.size() == submissionTypeCount);
 
