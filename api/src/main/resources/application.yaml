@@ -1,0 +1,25 @@
+server:
+  port: 1337
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:cert/vezmito.p12
+    key-store-password: ${VT_KEY_STORE_PASS}
+    key-alias: vezmito
+    enabled: true
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vezmito
+    username: ${VT_DB_USER}
+    password: ${VT_DB_PASS}
+    hikari:
+      connectionTimeout: 10000
+      maximumPoolSize: 5
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
