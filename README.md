@@ -24,7 +24,7 @@ Follow the instructions below in order.
 
 Install the following
 
- - Java11
+ - Java17
  - Docker
  - npm/nodeJS
 
