@@ -14,7 +14,7 @@ Lorem ipsum dolor sit amet.
  
 ## Swagger UI
 
-http://localhost:1337/swagger-ui.html
+https://dpt.wtf:1337/swagger-ui/index.html
 
 ## Development setup
 
@@ -44,3 +44,13 @@ Run the image.
 #### Initialization
 
 Run scripts from `database/postgresql/migration` in order.
+
+### 2.0 Environment setup
+
+The project uses externalized configuration for sensitive properties, which are stored in an `.env`
+file that is NOT TO BE PUSHED INTO THE REPOSITORY.
+
+This file needs to be present on the server as well in order for the application to work properly.
+
+For development and EnvFile plugin is necessary to be present on the IDE to configure builds to
+include the properties from the .env file.
