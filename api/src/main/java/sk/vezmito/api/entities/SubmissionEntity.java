@@ -6,13 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.codehaus.plexus.component.configurator.converters.basic.UrlConverter;
 import org.hibernate.annotations.GenericGenerator;
 import sk.vezmito.api.common.Location;
 import sk.vezmito.api.common.Tag;
-import sk.vezmito.api.entities.converters.FlagsToJsonConverter;
-import sk.vezmito.api.entities.converters.LocalDateTimeConverter;
-import sk.vezmito.api.entities.converters.LocationConverter;
-import sk.vezmito.api.entities.converters.TagsToJsonConverter;
+import sk.vezmito.api.entities.converters.*;
 import sk.vezmito.api.enums.SubmissionState;
 import sk.vezmito.api.enums.SubmissionType;
 import sk.vezmito.api.model.Flag;
@@ -49,13 +47,16 @@ public class SubmissionEntity {
     private SubmissionType submissionType;
 
     @Convert(converter = LocationConverter.class)
-    @Column(name = "geo_location")
     private Location location;
 
     private String description;
 
+    @Convert(converter = UrlListConverter.class)
+    @Column(name = "photos")
+    private List<String> photoUrls;
+
     @Convert(converter = TagsToJsonConverter.class)
-    private List<Tag> tags;
+    private List<String> tags;
 
     @Convert(converter = FlagsToJsonConverter.class)
     private List<Flag> flags;

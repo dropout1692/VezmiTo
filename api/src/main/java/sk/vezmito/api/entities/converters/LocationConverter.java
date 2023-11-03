@@ -7,9 +7,10 @@ public class LocationConverter implements AttributeConverter<Location, String> {
 
     @Override
     public String convertToDatabaseColumn(Location location) {
-        return String.format("%s;%s",
-            location.getLatitude(),
-            location.getLongitude()
+        return String.format("%s;%s;%s",
+                location.getLatitude(),
+                location.getLongitude(),
+                location.getAltitude()
         );
     }
 
@@ -17,8 +18,9 @@ public class LocationConverter implements AttributeConverter<Location, String> {
     public Location convertToEntityAttribute(String s) {
         String[] splitted = s.split(";");
         return new Location(
-            splitted[0],
-            splitted[1]
+                splitted[0],
+                splitted[1],
+                splitted[2]
         );
     }
 }

@@ -1,13 +1,11 @@
 package sk.vezmito.api.entities.converters;
 
 import jakarta.persistence.AttributeConverter;
-import sk.vezmito.api.common.Location;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TagsToJsonConverter implements AttributeConverter<List<String>, String> {
-
+public class UrlListConverter implements AttributeConverter<List<String>, String> {
     @Override
     public String convertToDatabaseColumn(List<String> strings) {
         return String.join(",", strings);

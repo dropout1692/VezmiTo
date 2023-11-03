@@ -115,7 +115,7 @@ public class SubmissionService {
         submissionEntity.setCreatedAt(now);
         submissionEntity.setUpdatedAt(now);
         submissionEntity.setDescription(dto.getDescription());
-        submissionEntity.setLocation(new Location(dto.getGpsLatitude(), dto.getGpsLongitude()));
+        submissionEntity.setLocation(dto.getLocation());
         submissionEntity.setPin(PinUtil.randomPin());
         submissionEntity.setSubmissionState(SubmissionState.CREATED);
         submissionEntity.setSubmissionType(dto.getSubmissionType());
@@ -144,7 +144,7 @@ public class SubmissionService {
             SubmissionEntity submissionEntity = foundEntity.get();
 
             submissionEntity.setUpdatedAt(LocalDateTime.now());
-            submissionEntity.setLocation(new Location(dto.getGpsLatitude(), dto.getGpsLongitude()));
+            submissionEntity.setLocation(dto.getLocation());
             submissionEntity.setSubmissionState(SubmissionState.CREATED);
 
             Submission submission = modelMapper.map(submissionEntity, Submission.class);

@@ -3,6 +3,7 @@ package sk.vezmito.api;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
+import sk.vezmito.api.common.Location;
 import sk.vezmito.api.common.Tag;
 import sk.vezmito.api.dto.AuthorRequestDTO;
 import sk.vezmito.api.dto.CreateSubmissionDTO;
@@ -43,14 +45,19 @@ public class SubmissionTests {
             "author@nongenerated123.org",
             null
         );
+
+        Location location = new Location();
+        location.setAltitude("0.0");
+        location.setLatitude("1.0");
+        location.setLongitude("5.0");
+
         CreateSubmissionDTO dto = new CreateSubmissionDTO(
             authorRequestDTO,
             "Testing sub title",
             SubmissionType.GIVEAWAY,
             new ArrayList<>(),
-            "Testing name",
-            "1.0",
-            "5.0",
+            List.of("http://testing.url1337.wtf/picture123.jpeg"),
+            location,
             "Testing sub description"
         );
 
@@ -67,13 +74,17 @@ public class SubmissionTests {
             "123FFF",
             true
         );
+
+        Location updatedLocation = new Location();
+        location.setAltitude("0.0");
+        location.setLatitude("1.0");
+        location.setLongitude("6.0");
+
         UpdateSubmissionDTO updateDTO = new UpdateSubmissionDTO(
             "Updated title",
             SubmissionType.GIVEAWAY,
             Collections.singletonList(tag),
-            "Changed name",
-            "1.0",
-            "6.0",
+            updatedLocation,
             "Changed description"
         );
 

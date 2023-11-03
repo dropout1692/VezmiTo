@@ -1,17 +1,5 @@
 package sk.vezmito.api;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -26,6 +14,11 @@ import sk.vezmito.api.persistence.AuthorDAO;
 import sk.vezmito.api.persistence.SubmissionDAO;
 import sk.vezmito.api.security.PinUtil;
 import sk.vezmito.api.services.GeneratorService;
+
+import java.time.LocalDateTime;
+import java.util.*;
+
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @SpringBootTest
 public class GeneratorTests {
@@ -107,7 +100,7 @@ public class GeneratorTests {
         nonGeneratedEntity.setPin(PinUtil.randomPin());
         nonGeneratedEntity.setSubmissionState(SubmissionState.CREATED);
         nonGeneratedEntity.setSubmissionType(SubmissionType.FREEBIE);
-        nonGeneratedEntity.setTags(Collections.singletonList(generatorService.getGeneratedTag()));
+        nonGeneratedEntity.setTags(List.of("Testing"));
         nonGeneratedEntity.setTitle(String.format("Testing submission %s", "NON-GEN"));
 
         submissionDAO.save(nonGeneratedEntity);

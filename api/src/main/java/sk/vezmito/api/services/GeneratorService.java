@@ -1,13 +1,5 @@
 package sk.vezmito.api.services;
 
-import java.security.SecureRandom;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sk.vezmito.api.common.Location;
@@ -19,6 +11,10 @@ import sk.vezmito.api.enums.SubmissionType;
 import sk.vezmito.api.persistence.AuthorDAO;
 import sk.vezmito.api.persistence.SubmissionDAO;
 import sk.vezmito.api.security.PinUtil;
+
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class GeneratorService {
@@ -46,20 +42,20 @@ public class GeneratorService {
 
         List<SubmissionEntity> submissions = submissionDAO.findAll();
         submissions.stream()
-            .filter(s -> {
-                for (Tag tag : s.getTags()) {
-                    if (tag.getName().equals(GEN_TAG)) {
-                        return true;
+                .filter(s -> {
+                    for (String tag : s.getTags()) {
+                        if (tag.equals(GEN_TAG)) {
+                            return true;
+                        }
                     }
-                }
-                return false;
-            })
-            .forEach(s -> submissionDAO.delete(s));
+                    return false;
+                })
+                .forEach(s -> submissionDAO.delete(s));
 
         List<AuthorEntity> authors = authorDAO.findAll();
         authors.stream()
-            .filter(a -> a.getEmail().contains(GEN_HOST))
-            .forEach(a -> authorDAO.delete(a));
+                .filter(a -> a.getEmail().contains(GEN_HOST))
+                .forEach(a -> authorDAO.delete(a));
     }
 
     public List<String> generateSubmissions(int count, SubmissionType type) {
@@ -100,7 +96,7 @@ public class GeneratorService {
         entity.setPin(PinUtil.randomPin());
         entity.setSubmissionState(SubmissionState.CREATED);
         entity.setSubmissionType(type);
-        entity.setTags(Collections.singletonList(getGeneratedTag()));
+        entity.setTags(List.of(GEN_TAG));
         entity.setTitle(String.format("Submission %s", id));
 
         return submissionDAO.save(entity);
@@ -116,20 +112,10 @@ public class GeneratorService {
         double deviationLon = BRATISLAVA_LON + (random.nextDouble() * 2 - 1);
 
         return new Location(
-            String.valueOf(deviationLat),
-            String.valueOf(deviationLon)
+                String.valueOf(deviationLat),
+                String.valueOf(deviationLon),
+                String.valueOf(0)
         );
-    }
-
-    public Tag getGeneratedTag() {
-
-        Tag tag = new Tag();
-        tag.setId(UUID.randomUUID().toString());
-        tag.setHexColor(GEN_HEX);
-        tag.setName(GEN_TAG);
-        tag.setPermanent(true);
-
-        return tag;
     }
 
     private AuthorEntity getRandomAuthor() {
