@@ -19,8 +19,7 @@ export const ImageUpload = ({
             )}
           </div>
           <p className="pointer-none text-gray-500 text-sm ">
-            <span>Drag and drop</span> files here <br /> or select a file from
-            your gallery
+            Nahraj fotografiu
           </p>
         </div>
         <input

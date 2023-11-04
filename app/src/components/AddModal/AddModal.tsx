@@ -10,12 +10,22 @@ import { useGeolocation } from '../../hooks/location/useGeolocation'
 import { ImageUpload } from '../ImageUpload/ImageUpload'
 import { useImageUpload } from '../../hooks/upload/useImageUpload'
 import { Spinner } from '../Spinner/Spinner'
+import { FREEBIES } from '../../config/freebies'
+import slugify from 'slugify'
 
 type OutputDataType = {
-  tag?: string
+  tags?: string[]
+  title?: string
   photo?: any
   coords?: GeolocationCoordinates
 }
+
+const ADD_MODAL_COMBOBOX_OPTIONS = FREEBIES.sort((a, b) =>
+  slugify(a.title) > slugify(b.title) ? 1 : -1,
+).map((freebie) => ({
+  value: freebie,
+  label: freebie.title,
+}))
 
 export const AddModal = ({
   onOpenChange,
@@ -31,10 +41,14 @@ export const AddModal = ({
   const imageUpload = useImageUpload()
   const { geoData, getCurrentPosition } = useGeolocation({ getOnInit: false })
 
-  const handleOnChange = (name: string, data: any) => {
+  const handleOnChange = (data: { name: string; data: any }[]) => {
+    const newData = data.reduce(
+      (acc, { name, data }) => ({ ...acc, [name]: data }),
+      {},
+    )
     setOutput((prevState) => ({
       ...prevState,
-      [`${name}`]: data,
+      ...newData,
     }))
   }
 
@@ -46,7 +60,8 @@ export const AddModal = ({
         onSuccess: (imageUploadData) => {
           setLoading(false)
           onSubmit({
-            tag: output?.tag,
+            title: output?.title,
+            tags: [output?.tag],
             coords: geoData?.coords,
             photo: imageUploadData.url,
           })
@@ -69,7 +84,12 @@ export const AddModal = ({
     return () => setOutput({})
   }, [open])
 
-  const isSubmitDisabled = !(output.photo && output.tag && geoData.coords)
+  const isSubmitDisabled = !(
+    output.photo &&
+    output.title &&
+    output.tag &&
+    geoData.coords
+  )
 
   return (
     <Dialog.Root onOpenChange={onOpenChange} open={open}>
@@ -79,41 +99,24 @@ export const AddModal = ({
           <Form.Root className="mt-8 space-y-3">
             <div className="grid grid-cols-1 space-y-2">
               <label className="text-sm font-bold text-gray-500 tracking-wide">
-                Select category
+                Vyber kategóriu
               </label>
               <Combobox
-                onChange={({ label }) => handleOnChange('tag', label)}
-                placeholder={'Choose'}
-                data={[
-                  { value: 0, label: 'baklažán' },
-                  { value: 1, label: 'biela reďkovka' },
-                  { value: 2, label: 'brokolica' },
-                  { value: 3, label: 'cesnak' },
-                  { value: 4, label: 'cibuľa' },
-                  { value: 5, label: 'cuketa' },
-                  { value: 6, label: 'cvikla' },
-                  { value: 7, label: 'hrach' },
-                  { value: 8, label: 'hrozno' },
-                  { value: 9, label: 'hruška' },
-                  { value: 10, label: 'jablko' },
-                  { value: 11, label: 'jahoda' },
-                  { value: 12, label: 'jahňací šalát' },
-                  { value: 13, label: 'kaleráb' },
-                  { value: 14, label: 'kapusta' },
-                  { value: 15, label: 'karfiol' },
-                  { value: 16, label: 'mangold' },
-                  { value: 17, label: 'marhuľa' },
-                  { value: 18, label: 'mrkva' },
-                  { value: 19, label: 'ostružina' },
-                ]}
+                onChange={({ value }) =>
+                  handleOnChange([
+                    { name: 'title', data: value.title },
+                    { name: 'tag', data: value.tag },
+                  ])
+                }
+                placeholder={'Kategória'}
+                data={ADD_MODAL_COMBOBOX_OPTIONS}
               />
             </div>
             <div className="grid grid-cols-1 space-y-2">
-              <label className="text-sm font-bold text-gray-500 tracking-wide">
-                Attach photo
-              </label>
               <ImageUpload
-                onChange={(file) => handleOnChange('photo', file)}
+                onChange={(file) =>
+                  handleOnChange([{ name: 'photo', data: file }])
+                }
                 previewSrc={
                   output?.photo ? URL.createObjectURL(output?.photo) : ''
                 }
@@ -131,7 +134,7 @@ export const AddModal = ({
                   )}
                 >
                   <Spinner show={loading} />
-                  Submit
+                  Odoslať
                 </button>
               </div>
             </Dialog.Close>

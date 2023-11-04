@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Combobox as HeadlessuiCombobox, Transition } from '@headlessui/react'
 import { Icon } from '../Icon'
+import stringify from '../../libs/tools/stringify'
 
 export const Combobox = ({ data, onChange, placeholder }) => {
   const [selected, setSelected] = useState()
@@ -15,6 +16,7 @@ export const Combobox = ({ data, onChange, placeholder }) => {
             .replace(/\s+/g, '')
             .includes(query.toLowerCase().replace(/\s+/g, '')),
         )
+
   return (
     <div className="w-full">
       <HeadlessuiCombobox
@@ -48,15 +50,15 @@ export const Combobox = ({ data, onChange, placeholder }) => {
             leaveTo="opacity-0"
             afterLeave={() => setQuery('')}
           >
-            <HeadlessuiCombobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <HeadlessuiCombobox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {filteredData.length === 0 && query !== '' ? (
                 <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
-                  Nothing found.
+                  Žiadne výsledky
                 </div>
               ) : (
                 filteredData.map((item) => (
                   <HeadlessuiCombobox.Option
-                    key={item.value}
+                    key={stringify(item.value)}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
                         active ? 'bg-primary text-white' : 'text-gray-900'

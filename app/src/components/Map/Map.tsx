@@ -33,13 +33,16 @@ export const Map = ({ latitude, longitude, data }) => {
       {data && (
         <MarkerClusterGroup>
           {data.map((submission: any) => {
-            const { id, location } = submission
+            const {
+              id,
+              location: { latitude, longitude },
+            } = submission
             return (
               <Marker
                 key={id}
                 position={{
-                  lat: location?.latitude,
-                  lng: location?.longitude,
+                  lat: latitude,
+                  lng: longitude,
                 }}
               />
             )
