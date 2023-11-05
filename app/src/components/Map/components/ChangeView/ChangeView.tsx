@@ -1,16 +1,21 @@
 import { useEffect } from 'react'
 import { useMap } from 'react-leaflet'
+import {
+  selectLocation,
+  selectZoom,
+  usePageSelector,
+} from '../../../../store/features/page/pageSlice'
 
-const LOCATION_FOUND_ZOOM = 15
-
-export const ChangeView = ({ latitude, longitude }) => {
+export const ChangeView = () => {
   const map = useMap()
+  const zoom = usePageSelector(selectZoom)
+  const { lat, lng } = usePageSelector(selectLocation)
 
   useEffect(() => {
-    if (latitude && longitude) {
-      map.setView([latitude, longitude], LOCATION_FOUND_ZOOM)
+    if (lat && lng) {
+      map.setView([lat, lng], zoom)
     }
-  }, [latitude, longitude])
+  }, [lat, lng])
 
   return null
 }
