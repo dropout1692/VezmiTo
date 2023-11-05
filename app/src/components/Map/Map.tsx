@@ -1,5 +1,5 @@
 import './map.scss'
-import { MapContainer, TileLayer, Marker } from 'react-leaflet'
+import { MapContainer, TileLayer } from 'react-leaflet'
 import 'leaflet.markercluster'
 import MarkerClusterGroup from '@changey/react-leaflet-markercluster'
 import { OpenStreetMapProvider } from 'leaflet-geosearch'
@@ -7,23 +7,28 @@ import { GeoSearch } from './components/GeoSearch/GeoSearch'
 import { ComponentResize } from './components/ComponentResize/ComponentResize'
 import { ChangeView } from './components/ChangeView/ChangeView'
 import { LocateControl } from './components/LocateControl/LocateControl'
+import { Pin } from '../Pin/Pin'
+import {
+  selectLocation,
+  selectZoom,
+  usePageSelector,
+} from '../../store/features/page/pageSlice'
+import { EventLayer } from './components/EventLayer/EventLayer'
 
-const INITIAL_ZOOM = 5
-const INITIAL_LOCATION = {
-  lat: 51.0,
-  lon: 19.0,
-}
+export const Map = ({ data }) => {
+  const zoom = usePageSelector(selectZoom)
+  const { lat, lng } = usePageSelector(selectLocation)
 
-export const Map = ({ latitude, longitude, data }) => {
   return (
     <MapContainer
       className="markercluster-map"
-      center={[INITIAL_LOCATION.lat, INITIAL_LOCATION.lon]}
-      zoom={INITIAL_ZOOM}
+      center={[lat, lng]}
+      zoom={zoom}
       maxZoom={18}
     >
       <ComponentResize />
-      <ChangeView latitude={latitude} longitude={longitude} />
+      <EventLayer />
+      <ChangeView />
       <GeoSearch provider={new OpenStreetMapProvider()} />
       <LocateControl position="topleft" />
       <TileLayer
@@ -36,19 +41,17 @@ export const Map = ({ latitude, longitude, data }) => {
             const {
               id,
               location: { latitude, longitude },
+              title,
             } = submission
             return (
-              <Marker
-                key={id}
-                position={{
-                  lat: latitude,
-                  lng: longitude,
-                }}
-              />
+              <Pin key={id} position={[latitude, longitude]} title={title} />
             )
           })}
         </MarkerClusterGroup>
       )}
     </MapContainer>
   )
+}
+function useMap() {
+  throw new Error('Function not implemented.')
 }
