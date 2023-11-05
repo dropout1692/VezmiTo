@@ -41,15 +41,12 @@ export const Map = ({ data }) => {
             const {
               id,
               location: { latitude, longitude },
-              title,
-              tags,
             } = submission
             return (
               <Pin
                 key={id}
                 position={[latitude, longitude]}
-                title={title}
-                tags={tags}
+                submission={submission}
               />
             )
           })}

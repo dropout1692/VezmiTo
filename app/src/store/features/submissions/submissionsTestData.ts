@@ -7,7 +7,7 @@ export const SUBMISSIONS_TEST_DATA = [
     submissionType: 'FREEBIE',
     location: { latitude: 48.155633, longitude: 17.04505, altitude: 0 },
     description: '',
-    photos: [''],
+    photos: ['https://dummyimage.com/600x400/000/fff&text=Submission+image'],
     tags: ['nuts'],
   },
   {
@@ -18,7 +18,7 @@ export const SUBMISSIONS_TEST_DATA = [
     submissionType: 'FREEBIE',
     location: { latitude: 48.152633, longitude: 17.03505, altitude: 0 },
     description: '',
-    photos: [''],
+    photos: ['https://dummyimage.com/600x400/000/fff&text=Submission+image'],
     tags: ['veggies'],
   },
   {
@@ -29,7 +29,7 @@ export const SUBMISSIONS_TEST_DATA = [
     submissionType: 'FREEBIE',
     location: { latitude: 48.156633, longitude: 17.05505, altitude: 0 },
     description: '',
-    photos: [''],
+    photos: ['https://dummyimage.com/600x400/000/fff&text=Submission+image'],
     tags: ['fruits'],
   },
   {
@@ -40,7 +40,7 @@ export const SUBMISSIONS_TEST_DATA = [
     submissionType: 'FREEBIE',
     location: { latitude: 48.158633, longitude: 17.09505, altitude: 0 },
     description: '',
-    photos: [''],
+    photos: ['https://dummyimage.com/600x400/000/fff&text=Submission+image'],
     tags: ['herbs'],
   },
   {
@@ -51,7 +51,7 @@ export const SUBMISSIONS_TEST_DATA = [
     submissionType: 'FREEBIE',
     location: { latitude: 48.159633, longitude: 17.01505, altitude: 0 },
     description: '',
-    photos: [''],
+    photos: ['https://dummyimage.com/600x400/000/fff&text=Submission+image'],
     tags: ['mushrooms'],
   },
 ]
