@@ -1,12 +1,13 @@
+import './pin.scss'
 import React, { useMemo, useRef, useState } from 'react'
 import { Marker, MarkerProps, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
 import { createPortal } from 'react-dom'
-import { useParams } from '../../hooks/url/useParams'
 import {
   selectZoom,
   usePageSelector,
 } from '../../store/features/page/pageSlice'
+import { getRequiredSVGPinByCategory } from './helpers/getRequiredSVGPinByCategory'
 
 const MIN_ZOOM_TO_SHOW_PIN = 14
 
@@ -16,15 +17,16 @@ interface Props extends MarkerProps {
    */
   iconOptions?: L.DivIconOptions
   title?: string
+  tags?: string[]
 }
 
 const ReactMarkerForward = React.forwardRef<L.Marker, MarkerProps>(
-  ({ title, children, ...props }: MarkerProps, ref) => {
+  ({ title, tags, children, ...props }: MarkerProps, ref) => {
     const zoom = usePageSelector(selectZoom)
 
     const showTitle = zoom > MIN_ZOOM_TO_SHOW_PIN && title
     return (
-      <Marker ref={ref} {...props}>
+      <Marker ref={ref} {...props} icon={getRequiredSVGPinByCategory(tags[0])}>
         {showTitle && (
           <Tooltip direction="bottom" offset={[-15, 30]} opacity={1} permanent>
             <span>{title}</span>

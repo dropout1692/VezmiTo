@@ -1,0 +1,12 @@
+.leaflet-div-icon {
+  background: unset !important;
+  border: unset !important;
+}
+
+.marker-cluster-small {
+  background-color: rgba(64, 140, 58, 0.6);
+  div {
+    @apply bg-primary;
+    color: white;
+  }
+}

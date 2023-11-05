@@ -37,14 +37,20 @@ export const Map = ({ data }) => {
       />
       {data && (
         <MarkerClusterGroup>
-          {data.map((submission: any) => {
+          {data.map((submission) => {
             const {
               id,
               location: { latitude, longitude },
               title,
+              tags,
             } = submission
             return (
-              <Pin key={id} position={[latitude, longitude]} title={title} />
+              <Pin
+                key={id}
+                position={[latitude, longitude]}
+                title={title}
+                tags={tags}
+              />
             )
           })}
         </MarkerClusterGroup>
