@@ -11,9 +11,13 @@ export const getFreebieSeason = ({
     FREEBIES.find((f) => slugify(f.title) === slugify(submission.title))
       ?.season || []
 
-  const activeSeason = season.reduce((acc, { start, end }) => {
-    return [...acc, start, end]
-  }, [] as number[])
+  const result = []
 
-  return activeSeason
+  for (const range of season) {
+    for (let num = range.start; num <= range.end; num++) {
+      result.push(num)
+    }
+  }
+
+  return result.sort((a, b) => a - b)
 }
