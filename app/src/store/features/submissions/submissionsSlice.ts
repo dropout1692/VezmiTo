@@ -37,7 +37,7 @@ export const submissionsSlice = createSlice({
   name: 'submissions',
   initialState,
   reducers: {
-    resetCommentsState: () => {
+    resetSubmissionsState: () => {
       return initialState
     },
   },
