@@ -9,7 +9,7 @@ public class UrlListConverter implements AttributeConverter<List<String>, String
 
     @Override
     public String convertToDatabaseColumn(List<String> strings) {
-        if (strings.size() > 0) {
+        if (strings != null && strings.size() > 0) {
             return String.join(",", strings);
         } else {
             return "";
