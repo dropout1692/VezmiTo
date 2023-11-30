@@ -20,6 +20,7 @@ type OutputDataType = {
   title?: string
   photo?: any
   coords?: GeolocationCoordinates
+  tag?: string
 }
 
 const ADD_MODAL_COMBOBOX_OPTIONS = FREEBIES.sort((a, b) =>
@@ -77,14 +78,15 @@ export const AddModal = ({
               //     longitude: 17.045081806388893,
               //     speed: null,
               //   },
-              //   photo:
+              //   photoUrls: [
               //     'http://res.cloudinary.com/dbdoc9vhq/image/upload/v1700233827/vezmito/gz1jxwzvj3udykwiynqt.jpg',
+              //   ]
               // }}
               submissionData={{
                 title: output?.title,
                 tags: [output?.tag],
                 coords: geoData?.coords,
-                photo: imageUploadData.url,
+                photoUrls: [imageUploadData?.url],
               }}
             />,
             {
