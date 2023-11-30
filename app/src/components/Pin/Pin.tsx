@@ -11,7 +11,7 @@ import { getRequiredSVGPinByCategory } from './helpers/getRequiredSVGPinByCatego
 import { PinDetail } from '../PinDetail/PinDetail'
 import { SubmissionType } from '../../store/features/submissions/submissionsSliceType'
 
-const MIN_ZOOM_TO_SHOW_PIN = 14
+const MIN_ZOOM_TO_SHOW_PIN = 10
 
 interface Props extends MarkerProps {
   /**
