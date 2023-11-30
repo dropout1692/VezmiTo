@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import sk.vezmito.api.common.Location;
-import sk.vezmito.api.common.Tag;
 import sk.vezmito.api.enums.SubmissionState;
 import sk.vezmito.api.enums.SubmissionType;
 
@@ -24,7 +23,7 @@ public class Submission {
     private Location location;
     private String description;
     private SubmissionType submissionType;
-    private List<Tag> tags;
+    private List<String> tags;
     private List<Flag> flags;
 
     private String pin;

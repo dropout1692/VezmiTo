@@ -1,22 +1,29 @@
 package sk.vezmito.api.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.codehaus.plexus.component.configurator.converters.basic.UrlConverter;
 import org.hibernate.annotations.GenericGenerator;
 import sk.vezmito.api.common.Location;
-import sk.vezmito.api.common.Tag;
-import sk.vezmito.api.entities.converters.*;
+import sk.vezmito.api.entities.converters.FlagsToJsonConverter;
+import sk.vezmito.api.entities.converters.LocalDateTimeConverter;
+import sk.vezmito.api.entities.converters.LocationConverter;
+import sk.vezmito.api.entities.converters.TagsToJsonConverter;
+import sk.vezmito.api.entities.converters.UrlListConverter;
 import sk.vezmito.api.enums.SubmissionState;
 import sk.vezmito.api.enums.SubmissionType;
 import sk.vezmito.api.model.Flag;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Getter
