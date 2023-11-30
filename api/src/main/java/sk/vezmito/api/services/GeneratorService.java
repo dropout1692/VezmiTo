@@ -124,6 +124,7 @@ public class GeneratorService {
         entity.setSubmissionState(SubmissionState.CREATED);
         entity.setSubmissionType(type);
         entity.setTags(tags);
+        entity.setPhotoUrls(List.of("https://dummyimage.com/600x400/000/fff&text=Submission+image"));
         entity.setTitle(getRandomTitle());
 
         return submissionDAO.save(entity);
