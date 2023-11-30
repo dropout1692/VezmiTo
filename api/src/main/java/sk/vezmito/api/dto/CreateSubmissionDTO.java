@@ -1,12 +1,9 @@
 package sk.vezmito.api.dto;
 
 import java.util.List;
-import java.util.Map;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import sk.vezmito.api.common.Location;
-import sk.vezmito.api.common.Tag;
 import sk.vezmito.api.enums.SubmissionType;
 
 @Data

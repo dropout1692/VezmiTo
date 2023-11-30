@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import sk.vezmito.api.common.Location;
-import sk.vezmito.api.common.Tag;
 import sk.vezmito.api.dto.AuthorRequestDTO;
 import sk.vezmito.api.dto.CreateSubmissionDTO;
 import sk.vezmito.api.dto.UpdateSubmissionDTO;
@@ -68,13 +67,6 @@ public class SubmissionTests {
         Optional<SubmissionEntity> foundSubmission = submissionDAO.findById(createdSubmission.getId());
         assertThat(foundSubmission.isPresent());
 
-        Tag tag = new Tag(
-            "someId",
-            "Test tag",
-            "123FFF",
-            true
-        );
-
         Location updatedLocation = new Location();
         location.setAltitude("0.0");
         location.setLatitude("1.0");
@@ -83,7 +75,7 @@ public class SubmissionTests {
         UpdateSubmissionDTO updateDTO = new UpdateSubmissionDTO(
             "Updated title",
             SubmissionType.GIVEAWAY,
-            Collections.singletonList(tag),
+            Collections.singletonList("Generated"),
             updatedLocation,
             "Changed description"
         );
