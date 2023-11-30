@@ -25,6 +25,7 @@ public class Submission {
     private SubmissionType submissionType;
     private List<String> tags;
     private List<Flag> flags;
+    private List<String> photoUrls;
 
     private String pin;
 
