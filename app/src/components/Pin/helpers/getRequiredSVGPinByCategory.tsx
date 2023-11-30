@@ -22,6 +22,8 @@ const ICON_MAP_BY_TAG: Record<string, any> = {
   nuts: NutsIcon,
 }
 
+const AVAILABLE_TAGS = TAGS.map(({ type }) => type)
+
 const CustomPin = ({ fill, Icon, disabled }) => {
   return (
     <div className="relative">
@@ -51,7 +53,7 @@ export const getRequiredSVGPinByCategory = ({
   submission: SubmissionType
 }) => {
   const { tags } = submission
-  const category = tags[0]
+  const category = tags.filter((tag) => AVAILABLE_TAGS.includes(tag))?.[0]
 
   const tagConfig = TAGS.find((tag) => tag.type === category) || {}
   const isSeason = isActiveSeason({ submission })

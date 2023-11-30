@@ -12,6 +12,8 @@ import { useImageUpload } from '../../hooks/upload/useImageUpload'
 import { Spinner } from '../Spinner/Spinner'
 import { FREEBIES } from '../../config/freebies'
 import slugify from 'slugify'
+import { useNotification } from '../../hooks/notification/useNotification'
+import { EditPinPosition } from '../Notification/EditPinPosition'
 
 type OutputDataType = {
   tags?: string[]
@@ -37,6 +39,7 @@ export const AddModal = ({
   onSubmit: (data: OutputDataType) => void
 }) => {
   const [output, setOutput] = useState<OutputDataType>({})
+  const { infoNotification } = useNotification()
   const [loading, setLoading] = useState<boolean>(false)
   const imageUpload = useImageUpload()
   const { geoData, getCurrentPosition } = useGeolocation({ getOnInit: false })
@@ -53,18 +56,41 @@ export const AddModal = ({
   }
 
   const handleOnSubmit = useCallback(
-    async (e) => {
+    async (e: any) => {
       e.preventDefault()
       setLoading(true)
       await imageUpload(output.photo, {
         onSuccess: (imageUploadData) => {
           setLoading(false)
-          onSubmit({
-            title: output?.title,
-            tags: [output?.tag],
-            coords: geoData?.coords,
-            photo: imageUploadData.url,
-          })
+          infoNotification(
+            <EditPinPosition
+              onSubmit={onSubmit}
+              // submissionData={{
+              //   title: 'Hruška',
+              //   tags: ['fruits'],
+              //   coords: {
+              //     accuracy: 38,
+              //     altitude: 0,
+              //     altitudeAccuracy: null,
+              //     heading: null,
+              //     latitude: 48.155604793532945,
+              //     longitude: 17.045081806388893,
+              //     speed: null,
+              //   },
+              //   photo:
+              //     'http://res.cloudinary.com/dbdoc9vhq/image/upload/v1700233827/vezmito/gz1jxwzvj3udykwiynqt.jpg',
+              // }}
+              submissionData={{
+                title: output?.title,
+                tags: [output?.tag],
+                coords: geoData?.coords,
+                photo: imageUploadData.url,
+              }}
+            />,
+            {
+              autoClose: false,
+            },
+          )
           if (onOpenChange) {
             onOpenChange()
           }
@@ -134,7 +160,7 @@ export const AddModal = ({
                   )}
                 >
                   <Spinner show={loading} />
-                  Odoslať
+                  Umiestni
                 </button>
               </div>
             </Dialog.Close>

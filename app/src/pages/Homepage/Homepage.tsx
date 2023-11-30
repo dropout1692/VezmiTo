@@ -17,6 +17,8 @@ import {
   setZoomAndLocation,
   usePageDispatch,
 } from '../../store/features/page/pageSlice'
+import { useNotification } from '../../hooks/notification/useNotification'
+import { EditPinPosition } from '../../components/Notification/EditPinPosition'
 
 export const Homepage = () => {
   const { lat, lng, zoom } = getUrlParameters()
@@ -24,6 +26,8 @@ export const Homepage = () => {
   const submissions = useSubmissionSelector(selectAllSubmissions)
   const submissionsDispatch = useSubmissionsDispatch()
   const pageDispatch = usePageDispatch()
+  const { infoNotification, errorNotification, dismissNotification } =
+    useNotification()
 
   const [showAddSubmissionModal, setShowAddSubmissionModal] =
     useState<boolean>(false)
@@ -36,7 +40,20 @@ export const Homepage = () => {
 
   useEffect(() => {
     if (submissionsStatus === 'idle') {
-      submissionsDispatch(fetchSubmissions())
+      submissionsDispatch(
+        fetchSubmissions({
+          thunkOptions: {
+            onError: () => {
+              errorNotification('Nepodarilo sa načítať dáta', {
+                autoClose: 1500,
+                pauseOnHover: false,
+                pauseOnFocusLoss: false,
+                hideProgressBar: false,
+              })
+            },
+          },
+        }),
+      )
     }
   }, [submissionsStatus])
 
@@ -78,7 +95,7 @@ export const Homepage = () => {
         open={showAddSubmissionModal}
         onOpenChange={toggleSetShowAddSubmissionModal}
         onSubmit={(data) => {
-          alert(JSON.stringify(data, null, 2))
+          console.log(data)
         }}
       />
       <Map data={submissions} />

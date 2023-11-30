@@ -6,11 +6,19 @@ import { SubmissionType, SubmissionsSliceType } from './submissionsSliceType'
 import { apiClient } from '../../../api/apiClient'
 import { SUBMISSIONS_TEST_DATA } from './submissionsTestData'
 
+type ThunkData<T = Object> = {
+  queryVariables?: T
+  thunkOptions?: {
+    onSuccess?: () => void
+    onError?: (err: any) => void
+  }
+}
+
 // ---------------
 // Initial State
 // ---------------
 export const initialState: SubmissionsSliceType = {
-  entities: SUBMISSIONS_TEST_DATA,
+  entities: [],
   status: 'idle',
   error: null,
 } as SubmissionsSliceType // https://github.com/reduxjs/redux-toolkit/pull/827
@@ -19,12 +27,19 @@ export const initialState: SubmissionsSliceType = {
 // Thunks
 // ---------------
 
-export const fetchSubmissions = createAsyncThunk(
+export const fetchSubmissions = createAsyncThunk<SubmissionType[], ThunkData>(
   'submissions/fetchData',
-  async () => {
-    const response = await apiClient().request({
-      url: '/submissions/get',
-    })
+  async ({ thunkOptions = {} }) => {
+    const { onError } = thunkOptions
+    const response = await apiClient()
+      .request({
+        url: '/submissions/get',
+      })
+      .catch((err) => {
+        if (onError) {
+          onError(err)
+        }
+      })
     return response.data
   },
 )
@@ -48,8 +63,8 @@ export const submissionsSlice = createSlice({
       })
       .addCase(fetchSubmissions.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        const payload = action.payload as SubmissionType
-        state.entities = payload.fetchSubmissions || []
+        const payload = action.payload
+        state.entities = payload
       })
       .addCase(fetchSubmissions.rejected, (state, action) => {
         state.status = 'failed'
