@@ -40,7 +40,8 @@ export const fetchSubmissions = createAsyncThunk<SubmissionType[], ThunkData>(
           onError(err)
         }
       })
-    return response.data
+
+    return response
   },
 )
 
