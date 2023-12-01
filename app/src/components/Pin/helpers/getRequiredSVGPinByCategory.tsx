@@ -30,9 +30,9 @@ const CustomPin = ({ fill, Icon, disabled }) => {
       <BasePin
         stroke={STROKE_COLOR}
         strokeWidth={8}
-        fill={fill}
+        fill={!disabled ? fill : '#A9A9A9'}
         style={{
-          opacity: disabled ? 0.5 : 1,
+          opacity: disabled ? 0.75 : 1,
         }}
       />
       <Icon
