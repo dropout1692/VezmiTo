@@ -1,0 +1,34 @@
+import { useEffect } from 'react'
+import { useMap } from 'react-leaflet'
+import {
+  selectSelectedSubmissionId,
+  usePageSelector,
+} from '../../../../store/features/page/pageSlice'
+import {
+  selectSubmissionById,
+  useSubmissionSelector,
+} from '../../../../store/features/submissions/submissionsSlice'
+
+export const CenterToTempPin = () => {
+  const map = useMap()
+  const selectedSubmissionId = usePageSelector(selectSelectedSubmissionId)
+  const selectedSubmission = useSubmissionSelector((state) =>
+    selectSubmissionById(state, selectedSubmissionId),
+  )
+
+  useEffect(() => {
+    if (selectedSubmission) {
+      map.flyTo(
+        [
+          selectedSubmission.location.latitude,
+          selectedSubmission.location.longitude,
+        ],
+        18,
+        {
+          animate: false,
+        },
+      )
+    }
+  }, [selectedSubmission])
+  return null
+}

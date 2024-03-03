@@ -7,7 +7,10 @@ import {
   selectZoom,
   usePageSelector,
 } from '../../store/features/page/pageSlice'
-import { getRequiredSVGPinByCategory } from './helpers/getRequiredSVGPinByCategory'
+import {
+  CustomPin,
+  getRequiredSVGPinByCategory,
+} from './helpers/getRequiredSVGPinByCategory'
 import { PinDetail } from '../PinDetail/PinDetail'
 import { SubmissionType } from '../../store/features/submissions/submissionsSliceType'
 
@@ -25,8 +28,18 @@ const ReactMarkerForward = React.forwardRef<L.Marker, MarkerProps>(
   ({ submission, children, ...props }: MarkerProps, ref) => {
     const zoom = usePageSelector(selectZoom)
 
-    const { title } = submission
+    const { title, meta } = submission
     const showTitle = zoom > MIN_ZOOM_TO_SHOW_PIN && title
+    const isTempLocation = meta?.tempLocation
+
+    if (isTempLocation) {
+      return (
+        <div className="vt-temp-marker">
+          <CustomPin color={'#cf250e'} isTemp={true} submission={submission} />
+        </div>
+      )
+    }
+
     return (
       <Marker
         ref={ref}
@@ -38,13 +51,15 @@ const ReactMarkerForward = React.forwardRef<L.Marker, MarkerProps>(
             <span>{title}</span>
           </Tooltip>
         )}
-        <Popup
-          className="submission-detail m-4"
-          offset={[-30, -10]}
-          minWidth={320}
-        >
-          <PinDetail submission={submission} />
-        </Popup>
+        {!isTempLocation && (
+          <Popup
+            className="submission-detail m-4"
+            offset={[-30, -10]}
+            minWidth={320}
+          >
+            <PinDetail submission={submission} />
+          </Popup>
+        )}
       </Marker>
     )
   },

@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { AddButton } from '../../components/AddButton/AddButton'
 import { AddModal } from '../../components/AddModal/AddModal'
 import {
+  createSubmission,
   fetchSubmissions,
   selectAllSubmissions,
   selectSubmissionsStatus,
@@ -18,7 +19,6 @@ import {
   usePageDispatch,
 } from '../../store/features/page/pageSlice'
 import { useNotification } from '../../hooks/notification/useNotification'
-import { EditPinPosition } from '../../components/Notification/EditPinPosition'
 
 export const Homepage = () => {
   const { lat, lng, zoom } = getUrlParameters()
@@ -26,8 +26,8 @@ export const Homepage = () => {
   const submissions = useSubmissionSelector(selectAllSubmissions)
   const submissionsDispatch = useSubmissionsDispatch()
   const pageDispatch = usePageDispatch()
-  const { infoNotification, errorNotification, dismissNotification } =
-    useNotification()
+  const submissionDispatch = useSubmissionsDispatch()
+  const { errorNotification } = useNotification()
 
   const [showAddSubmissionModal, setShowAddSubmissionModal] =
     useState<boolean>(false)
@@ -95,7 +95,11 @@ export const Homepage = () => {
         open={showAddSubmissionModal}
         onOpenChange={toggleSetShowAddSubmissionModal}
         onSubmit={(data) => {
-          console.log(data)
+          submissionDispatch(
+            createSubmission({
+              queryVariables: data,
+            }),
+          )
         }}
       />
       <Map data={submissions} />

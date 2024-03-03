@@ -10,9 +10,11 @@ import { MushroomsIcon } from '../components/icons/MushroomsIcon'
 import { NutsIcon } from '../components/icons/NutsIcon'
 import { SubmissionType } from '../../../store/features/submissions/submissionsSliceType'
 import { isActiveSeason } from '../../../helpers/isActiveSeason'
+import clsx from 'clsx'
 
 const PIN_SIZE = 55
 const STROKE_COLOR = '#fff'
+const TEMP_LOCATION_PIN_COLOR = '#cf250e'
 
 const ICON_MAP_BY_TAG: Record<string, any> = {
   veggies: VeggiesIcon,
@@ -22,20 +24,33 @@ const ICON_MAP_BY_TAG: Record<string, any> = {
   nuts: NutsIcon,
 }
 
-const AVAILABLE_TAGS = TAGS.map(({ type }) => type)
+export const AVAILABLE_TAGS = TAGS.map(({ type }) => type)
 
-const CustomPin = ({ fill, Icon, disabled }) => {
+export const CustomPin = ({ color, isTemp, submission }) => {
+  const { tags } = submission
+  const category = tags.filter((tag) => AVAILABLE_TAGS.includes(tag))?.[0]
+
+  const tagConfig = TAGS.find((tag) => tag.type === category) || {}
+  const isSeason = isActiveSeason({ submission })
+  const fill = color || tagConfig?.color || '#000'
+
+  const PinIcon = ICON_MAP_BY_TAG[category] || FallbackIcon
+
   return (
-    <div className="relative">
+    <div
+      className={clsx('vt-pin relative', {
+        'vt-pin--temp': isTemp,
+      })}
+    >
       <BasePin
         stroke={STROKE_COLOR}
         strokeWidth={8}
-        fill={!disabled ? fill : '#A9A9A9'}
+        fill={!isSeason ? fill : '#A9A9A9'}
         style={{
-          opacity: disabled ? 0.75 : 1,
+          opacity: isSeason ? 0.75 : 1,
         }}
       />
-      <Icon
+      <PinIcon
         fill="none"
         strokeWidth={16}
         stroke={STROKE_COLOR}
@@ -52,15 +67,7 @@ export const getRequiredSVGPinByCategory = ({
 }: {
   submission: SubmissionType
 }) => {
-  const { tags } = submission
-  const category = tags.filter((tag) => AVAILABLE_TAGS.includes(tag))?.[0]
-
-  const tagConfig = TAGS.find((tag) => tag.type === category) || {}
-  const isSeason = isActiveSeason({ submission })
-  const fill = tagConfig?.color || '#000'
-
-  const PinIcon = ICON_MAP_BY_TAG[category] || FallbackIcon
-  const pin = <CustomPin fill={fill} Icon={PinIcon} disabled={!isSeason} />
+  const pin = <CustomPin submission={submission} />
 
   const iconMarkup = renderToStaticMarkup(pin)
   const customMarketIcon = divIcon({

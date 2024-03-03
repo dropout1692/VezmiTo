@@ -14,6 +14,8 @@ import {
   usePageSelector,
 } from '../../store/features/page/pageSlice'
 import { EventLayer } from './components/EventLayer/EventLayer'
+import { CenterToTempPin } from './components/CenterToTempPin/CenterToTempPin'
+import { UpdateTempPinLocation } from './components/UpdateTempPinLocation/UpdateTempPinLocation'
 
 export const Map = ({ data }) => {
   const zoom = usePageSelector(selectZoom)
@@ -29,6 +31,8 @@ export const Map = ({ data }) => {
       <ComponentResize />
       <EventLayer />
       <ChangeView />
+      <CenterToTempPin />
+      <UpdateTempPinLocation />
       <GeoSearch provider={new OpenStreetMapProvider()} />
       <LocateControl position="topleft" />
       <TileLayer

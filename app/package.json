@@ -6,6 +6,7 @@
   "dependencies": {
     "@changey/react-leaflet-markercluster": "^4.0.0-rc1",
     "@headlessui/react": "^1.7.17",
+    "@paralleldrive/cuid2": "^2.2.2",
     "@phosphor-icons/react": "^2.0.13",
     "@radix-ui/colors": "^3.0.0-rc.4",
     "@radix-ui/react-dialog": "^1.0.4",

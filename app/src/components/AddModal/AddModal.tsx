@@ -9,18 +9,36 @@ import clsx from 'clsx'
 import { useGeolocation } from '../../hooks/location/useGeolocation'
 import { ImageUpload } from '../ImageUpload/ImageUpload'
 import { useImageUpload } from '../../hooks/upload/useImageUpload'
-import { Spinner } from '../Spinner/Spinner'
 import { FREEBIES } from '../../config/freebies'
 import slugify from 'slugify'
 import { useNotification } from '../../hooks/notification/useNotification'
 import { EditPinPosition } from '../Notification/EditPinPosition'
+import {
+  CreateSubmissionData,
+  SubmissionType,
+  deleteTempSubmission,
+  tempAddSubmission,
+  updateTempSubmission,
+  useSubmissionsDispatch,
+} from '../../store/features/submissions/submissionsSlice'
+import { randomString } from '../../libs/tools/randomString'
+import {
+  selectSelectedSubmissionId,
+  setIsLoading,
+  setSelectedSubmission,
+  usePageDispatch,
+  usePageSelector,
+} from '../../store/features/page/pageSlice'
 
 type OutputDataType = {
   tags?: string[]
   title?: string
-  photo?: any
+  photo?: string
   coords?: GeolocationCoordinates
   tag?: string
+  tempImageData?: any
+  submissionType?: SubmissionType
+  description?: string
 }
 
 const ADD_MODAL_COMBOBOX_OPTIONS = FREEBIES.sort((a, b) =>
@@ -37,13 +55,20 @@ export const AddModal = ({
 }: {
   onOpenChange?: () => void
   open?: boolean
-  onSubmit: (data: OutputDataType) => void
+  onSubmit: (data: CreateSubmissionData) => void
 }) => {
   const [output, setOutput] = useState<OutputDataType>({})
   const { infoNotification } = useNotification()
-  const [loading, setLoading] = useState<boolean>(false)
+  const submissionsDispatch = useSubmissionsDispatch()
+  const pageDispatch = usePageDispatch()
   const imageUpload = useImageUpload()
   const { geoData, getCurrentPosition } = useGeolocation({ getOnInit: false })
+  const selectedSubmissionId = usePageSelector(selectSelectedSubmissionId)
+
+  const [
+    showManualLocationUpdateNotification,
+    setShowManualLocationUpdateNotification,
+  ] = useState(false)
 
   const handleOnChange = (data: { name: string; data: any }[]) => {
     const newData = data.reduce(
@@ -56,53 +81,77 @@ export const AddModal = ({
     }))
   }
 
-  const handleOnSubmit = useCallback(
+  const reset = () => {
+    submissionsDispatch(deleteTempSubmission())
+    pageDispatch(setSelectedSubmission(''))
+    setOutput({})
+    setShowManualLocationUpdateNotification(false)
+  }
+
+  const handleSetSubmission = useCallback(
     async (e: any) => {
       e.preventDefault()
-      setLoading(true)
-      await imageUpload(output.photo, {
-        onSuccess: (imageUploadData) => {
-          setLoading(false)
-          infoNotification(
-            <EditPinPosition
-              onSubmit={onSubmit}
-              // submissionData={{
-              //   title: 'Hruška',
-              //   tags: ['fruits'],
-              //   coords: {
-              //     accuracy: 38,
-              //     altitude: 0,
-              //     altitudeAccuracy: null,
-              //     heading: null,
-              //     latitude: 48.155604793532945,
-              //     longitude: 17.045081806388893,
-              //     speed: null,
-              //   },
-              //   photoUrls: [
-              //     'http://res.cloudinary.com/dbdoc9vhq/image/upload/v1700233827/vezmito/gz1jxwzvj3udykwiynqt.jpg',
-              //   ]
-              // }}
-              submissionData={{
-                title: output?.title,
-                tags: [output?.tag],
-                coords: geoData?.coords,
-                photoUrls: [imageUploadData?.url],
-              }}
-            />,
-            {
-              autoClose: false,
-            },
-          )
-          if (onOpenChange) {
-            onOpenChange()
-          }
+      const tempId = randomString(8)
+      submissionsDispatch(
+        tempAddSubmission({
+          id: tempId,
+          title: output?.title,
+          submissionType: output?.submissionType,
+          tags: [output?.tag],
+          location: {
+            latitude: geoData?.coords?.latitude,
+            longitude: geoData?.coords?.longitude,
+            altitude: geoData?.coords?.altitude,
+          },
+          meta: {
+            tempLocation: true,
+          },
+        }),
+      )
+      pageDispatch(setSelectedSubmission(tempId))
+      setShowManualLocationUpdateNotification(true)
+      infoNotification(
+        <EditPinPosition
+          onSubmit={(data) => {
+            onSubmit(data)
+            reset()
+          }}
+        />,
+        {
+          autoClose: false,
+          onClose: () => {
+            submissionsDispatch(deleteTempSubmission())
+            pageDispatch(setSelectedSubmission(''))
+            setOutput({})
+            setShowManualLocationUpdateNotification(false)
+          },
         },
-        onError: () => {
-          setLoading(false)
-        },
-      })
+      )
+      if (onOpenChange) {
+        onOpenChange()
+      }
+      if (output.tempImageData) {
+        pageDispatch(setIsLoading(true))
+
+        await imageUpload(output.tempImageData, {
+          onSuccess: (imageUploadRes) => {
+            if (imageUploadRes?.remoteUrl) {
+              submissionsDispatch(
+                updateTempSubmission({
+                  id: selectSelectedSubmissionId,
+                  photoUrls: [imageUploadRes.remoteUrl],
+                }),
+              )
+            }
+            pageDispatch(setIsLoading(false))
+          },
+          onError: () => {
+            reset()
+          },
+        })
+      }
     },
-    [stringify({ output, geoData })],
+    [stringify({ output, geoData, selectedSubmissionId })],
   )
 
   useEffect(() => {
@@ -112,12 +161,10 @@ export const AddModal = ({
     return () => setOutput({})
   }, [open])
 
-  const isSubmitDisabled = !(
-    output.photo &&
-    output.title &&
-    output.tag &&
-    geoData.coords
-  )
+  const isSubmitDisabled = !(output.title && output.tag && geoData.coords)
+
+  if (showManualLocationUpdateNotification) {
+  }
 
   return (
     <Dialog.Root onOpenChange={onOpenChange} open={open}>
@@ -134,6 +181,7 @@ export const AddModal = ({
                   handleOnChange([
                     { name: 'title', data: value.title },
                     { name: 'tag', data: value.tag },
+                    { name: 'submissionType', data: 'FREEBIE' },
                   ])
                 }
                 placeholder={'Kategória'}
@@ -142,11 +190,13 @@ export const AddModal = ({
             </div>
             <div className="grid grid-cols-1 space-y-2">
               <ImageUpload
-                onChange={(file) =>
-                  handleOnChange([{ name: 'photo', data: file }])
-                }
+                onChange={(file) => {
+                  handleOnChange([{ name: 'tempImageData', data: file }])
+                }}
                 previewSrc={
-                  output?.photo ? URL.createObjectURL(output?.photo) : ''
+                  output?.tempImageData
+                    ? URL.createObjectURL(output?.tempImageData)
+                    : ''
                 }
               />
             </div>
@@ -154,14 +204,13 @@ export const AddModal = ({
               <div>
                 <button
                   type="button"
-                  onClick={handleOnSubmit}
+                  onClick={handleSetSubmission}
                   disabled={isSubmitDisabled}
                   className={clsx(
                     'box-border flex w-full justify-center items-center bg-primary text-white p-4  rounded-full font-semibold  shadow-lg cursor-pointer transition ease-in duration-300 mt-5',
                     { 'opacity-50': isSubmitDisabled },
                   )}
                 >
-                  <Spinner show={loading} />
                   Umiestni
                 </button>
               </div>

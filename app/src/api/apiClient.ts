@@ -1,6 +1,6 @@
 import axiosInstance from './axiosInstance'
 
-export type RequestMethodType = 'get' | 'post'
+export type RequestMethodType = 'get' | 'post' | 'put'
 
 export function apiClient({ customConfig = {} } = {}) {
   return {
@@ -16,11 +16,14 @@ export function apiClient({ customConfig = {} } = {}) {
       return axiosInstance({
         url,
         method,
-        ...(method === 'get' && {
-          headers: {
+        headers: {
+          ...(method === 'get' && {
             'Content-Type': 'application/json',
-          },
-        }),
+          }),
+          ...(method === 'put' && {
+            Accept: '*/*',
+          }),
+        },
         ...(data && { data }),
         ...customConfig,
       }).then((res) => res.data)

@@ -5,4 +5,6 @@ export type PageSliceType = {
     lng: number
     alt?: number
   }
+  selectedSubmissionId: string
+  isLoading: boolean
 }

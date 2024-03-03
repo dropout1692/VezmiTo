@@ -33,6 +33,7 @@ export const Combobox = ({ data, onChange, placeholder }) => {
               displayValue={(item) => item.label}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={placeholder}
+              autoComplete="off"
             />
             <HeadlessuiCombobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
               <Icon

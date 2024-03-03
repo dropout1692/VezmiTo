@@ -14,6 +14,8 @@ export const initialState: PageSliceType = {
     lat: 48.15635253890314,
     lng: 17.048506736755375,
   },
+  selectedSubmissionId: '',
+  isLoading: false,
 }
 
 // ---------------
@@ -34,6 +36,9 @@ export const pageSlice = createSlice({
       setUrlParameters(location)
       state.location = action.payload
     },
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload
+    },
     setZoomAndLocation: (state, action) => {
       const location = action.payload.location
       const zoom = action.payload.zoom
@@ -41,11 +46,21 @@ export const pageSlice = createSlice({
       state.zoom = zoom
       state.location = location
     },
+    setSelectedSubmission: (state, action) => {
+      const id = action.payload
+      state.selectedSubmissionId = id
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setZoom, setLocation, setZoomAndLocation } = pageSlice.actions
+export const {
+  setZoom,
+  setLocation,
+  setZoomAndLocation,
+  setSelectedSubmission,
+  setIsLoading,
+} = pageSlice.actions
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const usePageDispatch: () => AppDispatch = useDispatch
@@ -61,6 +76,14 @@ export const selectZoom = (state: RootState) => {
 
 export const selectLocation = (state: RootState) => {
   return state.page.location
+}
+
+export const selectIsLoading = (state: RootState) => {
+  return state.page.isLoading
+}
+
+export const selectSelectedSubmissionId = (state: RootState) => {
+  return state.page.selectedSubmissionId
 }
 
 export default pageSlice.reducer
