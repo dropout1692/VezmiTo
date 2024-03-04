@@ -130,7 +130,7 @@ export const submissionsSlice = createSlice({
       .addCase(fetchSubmissions.fulfilled, (state, action) => {
         state.status = 'succeeded'
         const payload = action.payload
-        state.entities = payload
+        state.entities = payload || []
       })
       .addCase(fetchSubmissions.rejected, (state, action) => {
         state.status = 'failed'
@@ -178,7 +178,7 @@ export const selectSubmissionById = createSelector(
   [selectAllSubmissions, (_, submissionId: string) => submissionId],
   (submissions, submissionId) => {
     return (
-      submissions.find((submission) => submission?.id === submissionId) || ''
+      submissions?.find((submission) => submission?.id === submissionId) || ''
     )
   },
 )
