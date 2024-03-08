@@ -2,6 +2,7 @@ package sk.vezmito.api.services;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sk.vezmito.api.dto.AuthorRequestDTO;
@@ -53,17 +54,26 @@ public class AuthorService {
     }
 
     private Optional<AuthorEntity> findExistingAuthor(
-        AuthorRequestDTO dto,
-        List<AuthorEntity> authors
+            AuthorRequestDTO dto,
+            List<AuthorEntity> authors
     ) {
         return authors.stream()
-            .filter(a -> {
-                boolean phoneMatch = a.getPhone().equals(dto.getPhone());
-                boolean emailMatch = a.getEmail().equals(dto.getEmail());
-                boolean deviceIDMatch = a.getDeviceID().equals(dto.getDeviceID());
-                return phoneMatch || emailMatch || deviceIDMatch;
-            })
-            .findFirst();
+                .filter(a -> {
+                    boolean phoneMatch = false;
+                    boolean emailMatch = false;
+                    boolean deviceIDMatch = false;
+                    if (a.getPhone() != null) {
+                        phoneMatch = a.getPhone().equals(dto.getPhone());
+                    }
+                    if (a.getEmail() != null) {
+                        emailMatch = a.getEmail().equals(dto.getEmail());
+                    }
+                    if (a.getDeviceID() != null) {
+                        deviceIDMatch = a.getDeviceID().equals(dto.getDeviceID());
+                    }
+                    return phoneMatch || emailMatch || deviceIDMatch;
+                })
+                .findFirst();
     }
 
     //todo: handle author merging
