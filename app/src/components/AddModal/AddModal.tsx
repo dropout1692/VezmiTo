@@ -4,7 +4,7 @@ import { Icon } from '../Icon'
 import * as Form from '@radix-ui/react-form'
 import { Combobox } from '../Combobox/Combobox'
 import { useCallback, useEffect, useState } from 'react'
-import stringify from '../../libs/tools/stringify'
+import { stringify } from '../../libs/tools/stringify'
 import clsx from 'clsx'
 import { useGeolocation } from '../../hooks/location/useGeolocation'
 import { ImageUpload } from '../ImageUpload/ImageUpload'
@@ -23,11 +23,9 @@ import {
 } from '../../store/features/submissions/submissionsSlice'
 import { randomString } from '../../libs/tools/randomString'
 import {
-  selectSelectedSubmissionId,
   setIsLoading,
   setSelectedSubmission,
   usePageDispatch,
-  usePageSelector,
 } from '../../store/features/page/pageSlice'
 
 type OutputDataType = {
@@ -58,17 +56,11 @@ export const AddModal = ({
   onSubmit: (data: CreateSubmissionData) => void
 }) => {
   const [output, setOutput] = useState<OutputDataType>({})
-  const { infoNotification } = useNotification()
+  const { infoNotification, dismissAllNotifications } = useNotification()
   const submissionsDispatch = useSubmissionsDispatch()
   const pageDispatch = usePageDispatch()
   const imageUpload = useImageUpload()
   const { geoData, getCurrentPosition } = useGeolocation({ getOnInit: false })
-  const selectedSubmissionId = usePageSelector(selectSelectedSubmissionId)
-
-  const [
-    showManualLocationUpdateNotification,
-    setShowManualLocationUpdateNotification,
-  ] = useState(false)
 
   const handleOnChange = (data: { name: string; data: any }[]) => {
     const newData = data.reduce(
@@ -85,7 +77,7 @@ export const AddModal = ({
     submissionsDispatch(deleteTempSubmission())
     pageDispatch(setSelectedSubmission(''))
     setOutput({})
-    setShowManualLocationUpdateNotification(false)
+    dismissAllNotifications()
   }
 
   const handleSetSubmission = useCallback(
@@ -109,7 +101,7 @@ export const AddModal = ({
         }),
       )
       pageDispatch(setSelectedSubmission(tempId))
-      setShowManualLocationUpdateNotification(true)
+
       infoNotification(
         <EditPinPosition
           onSubmit={(data) => {
@@ -123,7 +115,6 @@ export const AddModal = ({
             submissionsDispatch(deleteTempSubmission())
             pageDispatch(setSelectedSubmission(''))
             setOutput({})
-            setShowManualLocationUpdateNotification(false)
           },
         },
       )
@@ -135,11 +126,11 @@ export const AddModal = ({
 
         await imageUpload(output.tempImageData, {
           onSuccess: (imageUploadRes) => {
-            if (imageUploadRes?.remoteUrl) {
+            if (imageUploadRes?.secure_url) {
               submissionsDispatch(
                 updateTempSubmission({
-                  id: selectSelectedSubmissionId,
-                  photoUrls: [imageUploadRes.remoteUrl],
+                  id: tempId,
+                  photoUrls: [imageUploadRes.secure_url],
                 }),
               )
             }
@@ -151,7 +142,7 @@ export const AddModal = ({
         })
       }
     },
-    [stringify({ output, geoData, selectedSubmissionId })],
+    [stringify({ output, geoData })],
   )
 
   useEffect(() => {
@@ -162,9 +153,6 @@ export const AddModal = ({
   }, [open])
 
   const isSubmitDisabled = !(output.title && output.tag && geoData.coords)
-
-  if (showManualLocationUpdateNotification) {
-  }
 
   return (
     <Dialog.Root onOpenChange={onOpenChange} open={open}>
@@ -202,6 +190,11 @@ export const AddModal = ({
             </div>
             <Dialog.Close asChild>
               <div>
+                {!geoData?.coords && (
+                  <p className="text-center text-warning">
+                    Nepodarilo sa načítať aktuálnu polohu
+                  </p>
+                )}
                 <button
                   type="button"
                   onClick={handleSetSubmission}

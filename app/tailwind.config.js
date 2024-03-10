@@ -9,6 +9,7 @@ module.exports = {
         primary: '#408c3a',
         'bg-form-field-bg': '#fff',
         'border-color': '#E7E8E5',
+        warning: '#fcad03',
       },
     },
   },

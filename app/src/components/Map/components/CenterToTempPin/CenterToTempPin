@@ -3,11 +3,13 @@ import { useMap } from 'react-leaflet'
 import {
   selectSelectedSubmissionId,
   usePageSelector,
+  selectZoom,
 } from '../../../../store/features/page/pageSlice'
 import {
   selectSubmissionById,
   useSubmissionSelector,
 } from '../../../../store/features/submissions/submissionsSlice'
+import { stringify } from '../../../../libs/tools/stringify'
 
 export const CenterToTempPin = () => {
   const map = useMap()
@@ -15,9 +17,10 @@ export const CenterToTempPin = () => {
   const selectedSubmission = useSubmissionSelector((state) =>
     selectSubmissionById(state, selectedSubmissionId),
   )
+  const zoom = usePageSelector(selectZoom)
 
   useEffect(() => {
-    if (selectedSubmission) {
+    if (selectedSubmissionId) {
       map.flyTo(
         [
           selectedSubmission.location.latitude,
@@ -29,6 +32,7 @@ export const CenterToTempPin = () => {
         },
       )
     }
-  }, [selectedSubmission])
+  }, [selectedSubmissionId, zoom])
+
   return null
 }

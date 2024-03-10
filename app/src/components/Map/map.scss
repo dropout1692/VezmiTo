@@ -7,6 +7,24 @@
   height: 100%;
 }
 
+.leaflet-control-container {
+  .leaflet-top.leaflet-left {
+    top: 100vh;
+    transform: translate(0, -120%);
+  }
+}
+
 .leaflet-default-icon-path {
   background-image: url(https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png);
+}
+
+.leaflet-popup-content {
+  width: 300px !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  padding: 1.8rem 2.5rem;
+  line-height: 0;
+  font-size: 25px;
+  color: #000;
 }

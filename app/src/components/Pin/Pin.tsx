@@ -24,8 +24,8 @@ interface Props extends MarkerProps {
   submission?: SubmissionType
 }
 
-const ReactMarkerForward = React.forwardRef<L.Marker, MarkerProps>(
-  ({ submission, children, ...props }: MarkerProps, ref) => {
+const ReactMarkerForward = React.forwardRef<L.Marker, Props>(
+  ({ submission, children, ...props }: Props, ref) => {
     const zoom = usePageSelector(selectZoom)
 
     const { title, meta } = submission
@@ -51,24 +51,19 @@ const ReactMarkerForward = React.forwardRef<L.Marker, MarkerProps>(
             <span>{title}</span>
           </Tooltip>
         )}
-        {!isTempLocation && (
-          <Popup
-            className="submission-detail m-4"
-            offset={[-30, -10]}
-            minWidth={320}
-          >
-            <PinDetail submission={submission} />
-          </Popup>
-        )}
+        <Popup
+          className="submission-detail m-4"
+          offset={[-30, -10]}
+          minWidth={320}
+        >
+          <PinDetail submission={submission} />
+        </Popup>
       </Marker>
     )
   },
 )
 
-export const Pin: React.FC<MarkerProps> = (
-  { children, ...rest },
-  refInParent,
-) => {
+export const Pin: React.FC<MarkerProps> = ({ children, ...rest }) => {
   const ref = useRef<L.Marker>(null)
   return (
     <>

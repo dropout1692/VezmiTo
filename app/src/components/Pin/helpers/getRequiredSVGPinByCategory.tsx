@@ -31,7 +31,7 @@ export const CustomPin = ({ color, isTemp, submission }) => {
   const category = tags.filter((tag) => AVAILABLE_TAGS.includes(tag))?.[0]
 
   const tagConfig = TAGS.find((tag) => tag.type === category) || {}
-  const isSeason = isActiveSeason({ submission })
+  const isSeason = isTemp || isActiveSeason({ submission })
   const fill = color || tagConfig?.color || '#000'
 
   const PinIcon = ICON_MAP_BY_TAG[category] || FallbackIcon
@@ -45,9 +45,9 @@ export const CustomPin = ({ color, isTemp, submission }) => {
       <BasePin
         stroke={STROKE_COLOR}
         strokeWidth={8}
-        fill={!isSeason ? fill : '#A9A9A9'}
+        fill={isSeason ? fill : '#A9A9A9'}
         style={{
-          opacity: isSeason ? 0.75 : 1,
+          opacity: isSeason ? 1 : 0.75,
         }}
       />
       <PinIcon

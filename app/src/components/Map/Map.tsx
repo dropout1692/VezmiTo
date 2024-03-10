@@ -59,6 +59,3 @@ export const Map = ({ data }) => {
     </MapContainer>
   )
 }
-function useMap() {
-  throw new Error('Function not implemented.')
-}

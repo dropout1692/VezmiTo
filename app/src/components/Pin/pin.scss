@@ -28,6 +28,8 @@
 }
 
 .vt-pin {
+  width: 100%;
+  height: 100%;
   &--temp {
     animation: temp-pin-animation 0.5s infinite;
   }
@@ -37,9 +39,11 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-68%, -50%);
   z-index: 1000;
   width: 55px;
   height: 55px;
-  margin-top: -24px;
+  // corection
+  margin-top: 7px;
+  margin-right: 20px;
 }

@@ -12,11 +12,13 @@ import {
   useSubmissionSelector,
   useSubmissionsDispatch,
 } from './../../store/features/submissions/submissionsSlice'
-import stringify from 'json-stringify-safe'
+import { stringify } from '../../libs/tools/stringify'
 import { getUrlParameters } from '../../libs/tools/urlParams'
 import {
+  selectSelectedSubmissionId,
   setZoomAndLocation,
   usePageDispatch,
+  usePageSelector,
 } from '../../store/features/page/pageSlice'
 import { useNotification } from '../../hooks/notification/useNotification'
 
@@ -31,6 +33,8 @@ export const Homepage = () => {
 
   const [showAddSubmissionModal, setShowAddSubmissionModal] =
     useState<boolean>(false)
+
+  const selectedSubmissionId = usePageSelector(selectSelectedSubmissionId)
 
   const { geoData } = useGeolocation({ getOnInit: true })
 
@@ -88,7 +92,7 @@ export const Homepage = () => {
   return (
     <div className="h-full w-full">
       <Spinner show={isLoading} isFullscreen />
-      {!showAddSubmissionModal && (
+      {!showAddSubmissionModal && !selectedSubmissionId && (
         <AddButton onClick={() => setShowAddSubmissionModal(true)} />
       )}
       <AddModal

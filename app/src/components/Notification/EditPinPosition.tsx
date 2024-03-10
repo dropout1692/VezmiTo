@@ -10,7 +10,7 @@ import {
   useSubmissionSelector,
 } from '../../store/features/submissions/submissionsSlice'
 import { Spinner } from '../Spinner/Spinner'
-import stringify from '../../libs/tools/stringify'
+import { stringify } from '../../libs/tools/stringify'
 import { getMachineId } from '../../helpers/getMachineId'
 import clsx from 'clsx'
 

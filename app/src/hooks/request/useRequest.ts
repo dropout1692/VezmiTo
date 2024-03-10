@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import stringify from '../../libs/tools/stringify'
+import { stringify } from '../../libs/tools/stringify'
 import { apiClient, RequestMethodType } from '../../api/apiClient'
 
 type ApiResponseType = {

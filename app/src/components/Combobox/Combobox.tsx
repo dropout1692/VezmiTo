@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Combobox as HeadlessuiCombobox, Transition } from '@headlessui/react'
 import { Icon } from '../Icon'
-import stringify from '../../libs/tools/stringify'
+import { stringify } from '../../libs/tools/stringify'
 
 export const Combobox = ({ data, onChange, placeholder }) => {
   const [selected, setSelected] = useState()
