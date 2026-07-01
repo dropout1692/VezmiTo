@@ -1,0 +1,232 @@
+﻿{
+  "version": "0.0.1",
+  "name": "app",
+  "dependencies": {
+    "@capacitor/app": {
+      "version": "4.1.1",
+      "overridden": false
+    },
+    "@capacitor/camera": {
+      "version": "4.1.4",
+      "overridden": false
+    },
+    "@capacitor/cli": {
+      "version": "4.5.0",
+      "overridden": false
+    },
+    "@capacitor/core": {
+      "version": "4.5.0",
+      "overridden": false
+    },
+    "@capacitor/filesystem": {
+      "version": "4.1.4",
+      "overridden": false
+    },
+    "@capacitor/haptics": {
+      "version": "4.1.0",
+      "overridden": false
+    },
+    "@capacitor/keyboard": {
+      "version": "4.1.0",
+      "overridden": false
+    },
+    "@capacitor/preferences": {
+      "version": "4.0.2",
+      "overridden": false
+    },
+    "@capacitor/status-bar": {
+      "version": "4.1.0",
+      "overridden": false
+    },
+    "@changey/react-leaflet-markercluster": {
+      "version": "4.0.0-rc1",
+      "overridden": false
+    },
+    "@ionic/pwa-elements": {
+      "version": "3.1.1",
+      "overridden": false
+    },
+    "@ionic/react-router": {
+      "version": "6.3.8",
+      "overridden": false
+    },
+    "@ionic/react": {
+      "version": "6.3.8",
+      "overridden": false
+    },
+    "@testing-library/jest-dom": {
+      "version": "5.16.5",
+      "overridden": false
+    },
+    "@testing-library/react": {
+      "version": "13.4.0",
+      "overridden": false
+    },
+    "@testing-library/user-event": {
+      "version": "14.4.3",
+      "overridden": false
+    },
+    "@types/jest": {
+      "version": "29.2.3",
+      "overridden": false
+    },
+    "@types/json-stringify-safe": {
+      "version": "5.0.0",
+      "overridden": false
+    },
+    "@types/node": {
+      "version": "18.11.9",
+      "overridden": false
+    },
+    "@types/react-dom": {
+      "version": "18.0.9",
+      "overridden": false
+    },
+    "@types/react-leaflet-markercluster": {
+      "version": "3.0.0",
+      "overridden": false
+    },
+    "@types/react-router-dom": {
+      "version": "5.3.3",
+      "overridden": false
+    },
+    "@types/react-router": {
+      "version": "5.1.19",
+      "overridden": false
+    },
+    "@types/react": {
+      "version": "18.0.25",
+      "overridden": false
+    },
+    "axios": {
+      "version": "1.17.0",
+      "resolved": "https://registry.npmjs.org/axios/-/axios-1.17.0.tgz",
+      "overridden": false
+    },
+    "history": {
+      "version": "5.3.0",
+      "overridden": false
+    },
+    "ionicons": {
+      "version": "6.0.4",
+      "overridden": false
+    },
+    "json-stringify-safe": {
+      "version": "5.0.1",
+      "overridden": false
+    },
+    "leaflet.markercluster": {
+      "version": "1.5.3",
+      "overridden": false
+    },
+    "leaflet": {
+      "version": "1.9.3",
+      "overridden": false
+    },
+    "react-dom": {
+      "version": "18.2.0",
+      "overridden": false
+    },
+    "react-leaflet-cluster": {
+      "version": "2.0.0",
+      "overridden": false
+    },
+    "react-leaflet": {
+      "version": "4.1.0",
+      "overridden": false
+    },
+    "react-router-dom": {
+      "version": "5.2.0",
+      "overridden": false
+    },
+    "react-router": {
+      "version": "5.2.0",
+      "overridden": false
+    },
+    "react-scripts": {
+      "version": "5.0.1",
+      "overridden": false
+    },
+    "react": {
+      "version": "18.2.0",
+      "overridden": false
+    },
+    "redux-cookies-middleware": {
+      "version": "0.2.1",
+      "overridden": false
+    },
+    "redux": {
+      "version": "4.2.0",
+      "overridden": false
+    },
+    "typescript": {
+      "version": "4.9.3",
+      "overridden": false
+    },
+    "web-vitals": {
+      "version": "3.1.0",
+      "overridden": false
+    },
+    "workbox-background-sync": {
+      "version": "6.6.0",
+      "resolved": "https://registry.npmjs.org/workbox-background-sync/-/workbox-background-sync-6.6.0.tgz",
+      "overridden": false
+    },
+    "workbox-broadcast-update": {
+      "version": "6.6.0",
+      "resolved": "https://registry.npmjs.org/workbox-broadcast-update/-/workbox-broadcast-update-6.6.0.tgz",
+      "overridden": false
+    },
+    "workbox-cacheable-response": {
+      "version": "6.6.0",
+      "resolved": "https://registry.npmjs.org/workbox-cacheable-response/-/workbox-cacheable-response-6.6.0.tgz",
+      "overridden": false
+    },
+    "workbox-core": {
+      "version": "6.6.0",
+      "resolved": "https://registry.npmjs.org/workbox-core/-/workbox-core-6.6.0.tgz",
+      "overridden": false
+    },
+    "workbox-expiration": {
+      "version": "6.6.0",
+      "resolved": "https://registry.npmjs.org/workbox-expiration/-/workbox-expiration-6.6.0.tgz",
+      "overridden": false
+    },
+    "workbox-google-analytics": {
+      "version": "6.6.0",
+      "resolved": "https://registry.npmjs.org/workbox-google-analytics/-/workbox-google-analytics-6.6.0.tgz",
+      "overridden": false
+    },
+    "workbox-navigation-preload": {
+      "version": "6.6.0",
+      "resolved": "https://registry.npmjs.org/workbox-navigation-preload/-/workbox-navigation-preload-6.6.0.tgz",
+      "overridden": false
+    },
+    "workbox-precaching": {
+      "version": "6.6.0",
+      "resolved": "https://registry.npmjs.org/workbox-precaching/-/workbox-precaching-6.6.0.tgz",
+      "overridden": false
+    },
+    "workbox-range-requests": {
+      "version": "6.6.0",
+      "resolved": "https://registry.npmjs.org/workbox-range-requests/-/workbox-range-requests-6.6.0.tgz",
+      "overridden": false
+    },
+    "workbox-routing": {
+      "version": "6.6.0",
+      "resolved": "https://registry.npmjs.org/workbox-routing/-/workbox-routing-6.6.0.tgz",
+      "overridden": false
+    },
+    "workbox-strategies": {
+      "version": "6.6.0",
+      "resolved": "https://registry.npmjs.org/workbox-strategies/-/workbox-strategies-6.6.0.tgz",
+      "overridden": false
+    },
+    "workbox-streams": {
+      "version": "6.6.0",
+      "resolved": "https://registry.npmjs.org/workbox-streams/-/workbox-streams-6.6.0.tgz",
+      "overridden": false
+    }
+  }
+}
+
