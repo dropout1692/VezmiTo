@@ -1,26 +1,13 @@
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
-import reduxCookiesMiddleware, {
-  getStateFromCookies,
-  // @ts-ignore
-} from "redux-cookies-middleware";
 import allReducers from "./redux/reducers";
 
-const storePaths = {
+const initialState = {
   ui: {
-    name: "ui",
+    isLoading: false,
   },
 };
 
-const initialState = getStateFromCookies({}, storePaths);
-const cookieMiddleware = reduxCookiesMiddleware(storePaths);
-
-const middlewares = [cookieMiddleware];
-
-const store = createStore(
-  allReducers,
-  initialState,
-  applyMiddleware(...middlewares)
-);
+const store = createStore(allReducers, initialState, applyMiddleware());
 export const dispatchType = <P>(type: string, payload?: P): void => {
   store.dispatch({
     type,

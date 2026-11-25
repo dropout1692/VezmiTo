@@ -1,44 +1,87 @@
 # VezmiTo
 
-## Project details
+VezmiTo is a full-stack application for submitting, browsing, and moderating location-based media submissions.
 
-### Description
+## Architecture
 
-Lorem ipsum dolor sit amet.
+- `app/` — Ionic React PWA and mobile client
+- `api/` — Spring Boot REST API
+- `database/` — PostgreSQL Docker setup and ordered SQL migrations
+- `parsers/` — supporting data/parser utilities
 
-### Authors
+## Prerequisites
 
- - meno <email>
- - meno <email>
- - meno <email>
- 
+- Java 11
+- Node.js and npm
+- Docker and Docker Compose
+- PostgreSQL (or the provided Docker Compose setup)
 
+## Database
 
-## Development setup
+Start PostgreSQL from the database directory:
 
-Follow the instructions below in order.
-
-### 0.0 Prerequisities
-
-Install the following
-
- - Java11
- - Docker
- - npm/nodeJS
-
-### 1.0 Database
-
-#### Installation
-
-```
-docker pull postgres
+```bash
+cd database/postgresql/docker
+docker compose up -d
 ```
 
-Set exposed port `5432:5432` and make sure environment variables `POSTGRES_USERNAME` 
-and `POSTGRES_PASSWORD` are configured.
+Then apply migrations in numeric order:
 
-Run the image.
+```bash
+cd database/postgresql/migrations
+# Apply 0001_init_authors.sql, 0002_init_submissions.sql,
+# and 0003_init_albums.sql to the vezmito database.
+```
 
-#### Initialization
+Do not modify existing migration scripts; add a new numbered migration for schema changes.
 
-Run scripts from `database/postgresql/migration` in order.
+## Backend
+
+Configure `api/src/main/resources/application.properties` for the target database, or provide the Spring datasource properties through environment variables.
+
+```bash
+cd api
+./mvnw spring-boot:run
+```
+
+On Windows:
+
+```powershell
+cd api
+.\mvnw.cmd spring-boot:run
+```
+
+The API listens on port `1337` with the `/vezmito` context path. Swagger UI is available at `/vezmito/api-docs.html`.
+
+## Frontend
+
+```bash
+cd app
+npm install
+npm start
+```
+
+The development server is managed by Create React App. Update `app/src/config/app.ts` if the API host is not local or is not the configured deployment endpoint.
+
+For a production build:
+
+```bash
+cd app
+npm run build
+```
+
+## Tests
+
+```bash
+cd api
+./mvnw test
+
+cd ../app
+npm test -- --watchAll=false
+```
+
+## Security
+
+- Use environment variables or a secret manager for production database credentials; never commit real secrets.
+- Run `npm audit` in `app/` and `mvnw dependency-check:check` in `api/` when updating dependencies.
+- Review dependency changes carefully before upgrading major framework versions such as Spring Boot, React Scripts, or Capacitor.
